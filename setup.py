@@ -11,6 +11,6 @@ setup(name='Books UNAM API',
             'Flask>=0.10.1',
             'sqlalchemy>=1.0.12',
             'Flask-RESTful>=0.3.5',
-            'Flask-HTTPAuth=>3.2.1'
+            'Flask-HTTPAuth>=3.2.3'
       ],
      )
