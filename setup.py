@@ -7,5 +7,7 @@ setup(name='Books UNAM API',
       author='Rigoberto Canseco',
       author_email='rigobertocanseco@gmail.com',
       url='',
-      install_requires=['Flask>=0.10.1', 'sqlalchemy', 'flask-sqlalchemy'],
+      install_requires=[
+            'Flask>=0.10.1',
+            'sqlalchemy>=1.0.12'],
      )
