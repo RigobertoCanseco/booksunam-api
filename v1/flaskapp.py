@@ -1,5 +1,6 @@
 from flask import render_template, send_from_directory
-from api import app, db
+
+from v1 import app, db
 
 #######################################################################################################################
 ## APP
