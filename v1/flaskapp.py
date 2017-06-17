@@ -8,7 +8,9 @@ from resources import TestController
 #######################################################################################################################
 # APP = FLASK APPLICATION
 app = Flask(__name__)
-app.config.from_pyfile("config/openshift.cfg")
+# DEVELOP
+# app.config.from_pyfile("config/openshift.cfg")
+app.config.from_pyfile("config/localhost.cfg")
 ########################################################################################################################
 # DB = DATABASE SQL-ALCHEMY
 db = SQLAlchemy()
