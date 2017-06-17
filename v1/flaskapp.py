@@ -3,14 +3,14 @@ from flask import render_template, send_from_directory
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
-from resources import TestController
+from v1.resources.TestController import TestController
 
 #######################################################################################################################
 # APP = FLASK APPLICATION
 app = Flask(__name__)
 # DEVELOP
 app.config.from_pyfile("config/openshift.cfg")
-# app.config.from_pyfile("config/localhost.cfg")
+#app.config.from_pyfile("config/localhost.cfg")
 ########################################################################################################################
 # DB = DATABASE SQL-ALCHEMY
 db = SQLAlchemy()
