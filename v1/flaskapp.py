@@ -1,25 +1,7 @@
 # coding=utf-8
-from flask import render_template, send_from_directory
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api
-from v1.resources.TestController import TestController
+from v1 import app, db, api
 
-#######################################################################################################################
-# APP = FLASK APPLICATION
-app = Flask(__name__)
-# DEVELOP
-app.config.from_pyfile("config/openshift.cfg")
-#app.config.from_pyfile("config/localhost.cfg")
-########################################################################################################################
-# DB = DATABASE SQL-ALCHEMY
-db = SQLAlchemy()
-db.init_app(app)
-########################################################################################################################
-# API = FLASK RESTFUL
-api = Api(app)
-api_version = "/api/v1"
-########################################################################################################################
+from v1.resources.TestController import TestController
 
 
 api.add_resource(TestController, '/')
