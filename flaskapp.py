@@ -1,7 +1,6 @@
 from flask import render_template, send_from_directory
 from flask import Flask
-
-from v1 import  db
+from flask_sqlalchemy import SQLAlchemy
 
 #######################################################################################################################
 ## APP
@@ -9,6 +8,10 @@ app = Flask(__name__)
 app.config.from_pyfile( "flaskapp.cfg" )
 ########################################################################################################################
 ## FLASK
+
+db = SQLAlchemy()
+# auth = HTTPBasicAuth()
+
 db.init_app(app)
 ########################################################################################################################
 
