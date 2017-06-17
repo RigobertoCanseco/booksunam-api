@@ -9,5 +9,7 @@ setup(name='Books UNAM API',
       url='',
       install_requires=[
             'Flask>=0.10.1',
-            'sqlalchemy>=1.0.12'],
+            'sqlalchemy>=1.0.12',
+            'Flask-RESTful>=0.3.5'
+      ],
      )

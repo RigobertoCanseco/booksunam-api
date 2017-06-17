@@ -5,3 +5,4 @@
 # app = Flask(__name__)
 # db = SQLAlchemy()
 # # auth = HTTPBasicAuth()
+from resources import TestController
