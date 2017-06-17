@@ -6,5 +6,4 @@
 .idea/modules.xml
 .idea/workspace.xml
 /config/
-/config/openshift.config
-!/config/openshift.config
+/config/*
