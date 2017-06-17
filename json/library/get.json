@@ -1,0 +1,13 @@
+{
+  "_id":1,
+  "name":"Jesús Reyes Heroles",
+  "school":"Facultad de Estudios Superiores Aragón",
+  "website":"http://biblioteca-fes.aragon.unam.mx:8991/",
+  "address":"Av. Rancho Seco S/N, colonia Impulsora , municipio Nezahualcóyotl C.P. 57130 Estado de México",
+  "telephone":"56231069",
+  "resources": {
+    "book":"10801",
+    "thesis":"t0801",
+    "magazine":"p0801"
+  }
+}

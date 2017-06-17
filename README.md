@@ -1,7 +1,7 @@
 # API for find books of the National Autonomous University of Mexico (UNAM)
-*Api not official* 
+*Api not official, site web of [libraries of UNAM](http://bibliotecas.unam.mx/)* 
 
-Web page of [libraries of UNAM](http://bibliotecas.unam.mx/)
+[URL](http://bapi-rgcn.rhcloud.com/)
 
 
 ## API

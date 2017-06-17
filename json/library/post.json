@@ -1,0 +1,25 @@
+{
+  "name": "Biblioteca Central",
+  "division": "Dirección General de Bibliotecas",
+  "entity": "Biblioteca Central",
+  "website":"http://informatica.dgbiblio.unam.mx:8991/",
+  "address": "Edif. de Biblioteca Central, Circuito Escolar, Ciudad Universitaria, delegación Coyoacán C.P. 04510 México D.F.",
+  "telephone": "56221658",
+  "parameters":[
+    {
+      "parameter": "local_base",
+      "field": "books",
+      "value": "l1001"
+    },
+    {
+      "parameter": "local_base",
+      "field": "thesis",
+      "value": "t0801"
+    },
+    {
+      "parameter": "local_base",
+      "field": "magazine",
+      "value": "p0801"
+    }
+  ]
+}

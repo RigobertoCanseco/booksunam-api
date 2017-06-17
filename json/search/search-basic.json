@@ -1,0 +1,35 @@
+{
+  "func":"find-b",
+  "request":"java",
+  "find_code":{
+    "WRD":"all",
+    "WTT":"title",
+    "WAT":"author",
+    "WSS":"theme",
+    "WPU":"editorial",
+    "WPL":"place",
+    "WYR":"year",
+    "WSR":"serie",
+    "WIS":"ISBN",
+    "WCL":"classification",
+    "SYS":"system_number",
+    "TITG":"title ACC"
+  },
+  "adjacent":{
+    "N":"word",
+    "Y":"phase"
+  },
+  "x":"82",
+  "y":"17",
+  "filter_code_1":"WLN",
+  "filter_request_1":{
+    "SPA":"spanish",
+    "ENG":"english",
+    "FRE":"french",
+    "GER":"german"
+  },
+  "filter_code_2":"WYR",
+  "filter_request_2":"",
+  "filter_code_3":"WYR",
+  "filter_request_3":""
+}
