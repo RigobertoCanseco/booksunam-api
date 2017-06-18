@@ -12,7 +12,7 @@ setup(name='Books UNAM API',
             'sqlalchemy>=1.0.12',
             'Flask-RESTful>=0.3.5',
             'Flask-HTTPAuth>=3.2.3',
-            'marshmallow>=3.0.0',
+            'marshmallow>=3.0.0.b2',
             'beautifulsoup4>=4.6.0'
       ],
      )
