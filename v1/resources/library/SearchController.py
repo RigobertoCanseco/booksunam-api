@@ -57,8 +57,7 @@ class SearchListController(ControllerList):
 
             # GET SESSION
             session = self.args["session"]
-            print "session request:" + session
-
+            # KETCKMTGN3QL9RFI3BM6RC1M3XLKQD74I7S9YT1TG5EYRXK8BQ-17280
             # CREATE NEW SEARCH CRAWLER
             search_crawler = SearchCrawler(library_om.data["class_name"], library_om.data["website"], session=session)
 
