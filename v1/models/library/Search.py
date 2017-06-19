@@ -123,7 +123,7 @@ class SearchSchema(Schema):
     # TYPE SEARCH
     type = fields.Str(validate=validate_type)
     # BASIC
-    request = fields.Str(required=True, validate=validate_request)
+    request = fields.Str(required=False, validate=validate_request)
     field = fields.Str(default="all", validate=validate_field)
     split = fields.Str(default="yes", validate=validate_split)
     language = fields.Str(default="all", validate=validate_language)
@@ -135,7 +135,9 @@ class SearchSchema(Schema):
     start = fields.Int(required = False)
 
     def replace_values(self, data):
-        data["request"] = data['request'].encode('UTF-8')
+
+        if "request" in data:
+            data["request"] = data['request'].encode('UTF-8')
 
         if "field" in data:
             data["type"] = TYPES[data["type"]]
@@ -159,7 +161,6 @@ class SearchSchema(Schema):
 
         if "session" not in data:
             data["session"] = None
-
 
 
 class BookSchema(Schema):
