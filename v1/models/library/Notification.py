@@ -1,4 +1,4 @@
-from v1.flaskapp import db
+from v1 import db
 import hashlib
 import uuid
 

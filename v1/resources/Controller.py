@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # RESTFUL
-from flask import jsonify
+from flask import jsonify, render_template, send_from_directory
 from flask_restful import reqparse, Resource
 from sqlalchemy.exc import *
 # APP, DATABASE, AUTHENTICATION
@@ -35,10 +35,20 @@ def get_pw(username):
     return None
 
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/secret-page')
 @auth.login_required
-def index():
+def other():
     return "Hello, %s!" % auth.username()
+
+
+@app.route('/<path:resource>')
+def serve_static_resource(resource):
+    return send_from_directory('static/', resource)
 
 
 class Controller(Resource):

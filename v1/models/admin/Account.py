@@ -74,5 +74,5 @@ class AccountSchema(Schema):
     library = fields.Nested(LibrarySchema)
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return Account(**data)

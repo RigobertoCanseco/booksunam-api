@@ -46,7 +46,7 @@ class CleanHTML:
             on_loan = on_loan.group()
             total = total.replace('(', '').replace(' ', '').replace('/', '')
             on_loan = on_loan.replace(')', '').replace(' ', '').replace('/', '')
-            return {"total": int(total), "on_load": int(on_loan)}
+            return {"total": int(total), "on_loan": int(on_loan)}
         else:
             return None
 
@@ -67,7 +67,14 @@ class CleanHTML:
         return t
 
     @staticmethod
-    def clean_number(text):
+    def get_set_number(text):
+        """
+        text = 
+            http://biblioteca-fes.aragon.unam.mx:8991/F/SX25U2QYGN94EA582TRXG636DCQTG7MCDYIABS2U66XGY9DFGL-05202?
+            func=full-set-set&set_number=000131&set_entry=000001&format=999
+        :param text: 
+        :return: 
+        """
         reg = re.compile(r'(set_number=)[0-9]*')
         total = reg.search(text)
 
@@ -78,12 +85,91 @@ class CleanHTML:
             return None
 
     @staticmethod
-    def clean_entry(text):
+    def get_set_entry(text):
+        """
+        text = 
+            http://biblioteca-fes.aragon.unam.mx:8991/F/SX25U2QYGN94EA582TRXG636DCQTG7MCDYIABS2U66XGY9DFGL-05202?
+            func=full-set-set&set_number=000131&set_entry=000001&format=999
+        :param text: 
+        :return: 
+        """
         reg = re.compile(r'(set_entry=)[0-9]*')
         total = reg.search(text)
 
         if total is not None:
             total = total.group()
             return total.replace("set_entry=", "")
+        else:
+            return None
+
+    @staticmethod
+    def get_jump(text):
+        """
+        text = 
+            http://biblioteca-fes.aragon.unam.mx:8991/F/DCQ2GBRBAYBK91IAGKGAEGAP298MVEJEC23FRNNPFQ88US6DHT-06135?
+            func=short-jump&jump=000011
+        :param text: 
+        :return: 
+        """
+        reg = re.compile(r'(jump=)[0-9]*')
+        total = reg.search(text)
+
+        if total is not None:
+            total = total.group()
+            return total.replace("jump=", "")
+        else:
+            return None
+
+    @staticmethod
+    def get_doc_library(text):
+        """
+               text = 
+                   http://biblioteca-fes.aragon.unam.mx:8991/F/DCQ2GBRBAYBK91IAGKGAEGAP298MVEJEC23FRNNPFQ88US6DHT-06135?
+                   func=item-global&doc_library=L0801&doc_number=001918315&year=&volume=&sub_library=L08
+               :param text: 
+               :return: 
+               """
+        reg = re.compile(r'(doc_library=)(.*?)(&)')
+        total = reg.search(text)
+
+        if total is not None:
+            total = total.group()
+            return total.replace("doc_library=", "").replace("&", "")
+        else:
+            return None
+
+    @staticmethod
+    def get_doc_number(text):
+        """
+        text = 
+            http://biblioteca-fes.aragon.unam.mx:8991/F/DCQ2GBRBAYBK91IAGKGAEGAP298MVEJEC23FRNNPFQ88US6DHT-06135?
+            func=item-global&doc_library=L0801&doc_number=001918315&year=&volume=&sub_library=L08
+        :param text: 
+        :return: 
+        """
+        reg = re.compile(r'(doc_number=)[0-9]*')
+        total = reg.search(text)
+
+        if total is not None:
+            total = total.group()
+            return total.replace("doc_number=", "")
+        else:
+            return None
+
+    @staticmethod
+    def get_sub_library(text):
+        """
+               text = 
+                   http://biblioteca-fes.aragon.unam.mx:8991/F/DCQ2GBRBAYBK91IAGKGAEGAP298MVEJEC23FRNNPFQ88US6DHT-06135?
+                   func=item-global&doc_library=L0801&doc_number=001918315&year=&volume=&sub_library=L08
+               :param text: 
+               :return: 
+               """
+        reg = re.compile(r'(sub_library=)(.*)')
+        total = reg.search(text)
+
+        if total is not None:
+            total = total.group()
+            return total.replace("sub_library=", "")
         else:
             return None

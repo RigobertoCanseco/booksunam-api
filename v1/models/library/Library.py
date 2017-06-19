@@ -112,7 +112,7 @@ class LibraryParametersSchema(Schema):
     value = fields.Str()
 
     @post_load
-    def make_parameters(self, data):
+    def make(self, data):
         return LibraryParameter(**data)
 
 
@@ -134,5 +134,5 @@ class LibrarySchema(Schema):
     parameters = fields.List(fields.Nested(LibraryParametersSchema))
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return Library(**data)

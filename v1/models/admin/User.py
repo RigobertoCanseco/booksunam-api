@@ -90,5 +90,5 @@ class UserSchema(Schema):
     school = fields.Nested(SchoolSchema)
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return User(**data)

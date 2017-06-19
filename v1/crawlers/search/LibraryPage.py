@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # HTTP REQUEST
-#  TOOL FOR CRAWLER WEBSITE
+# TOOL FOR CRAWLER WEBSITE
 from bs4 import BeautifulSoup
 # CLEAN AND PARSE HTML
 from v1.common.CleanHTML import CleanHTML
@@ -69,6 +69,24 @@ class LibraryPage(object):
         :return: 
         """
         function_name = "search_" + args["type"]
+        # CREATE INSTANCE DYNAMICALLY
+        try:
+            class_name = globals()[args["collection"] + "Item"]
+            item_abstract = class_name(self.session, self.url, args)
+            # NAME FUNCTION
+            func = getattr(item_abstract, function_name)
+        except AttributeError:
+            print 'function not found %s' % function_name
+        else:
+            return func()
+
+    def pagination(self, args):
+        """
+        Search 
+        :param args: 
+        :return: 
+        """
+        function_name = "pagination"
         # CREATE INSTANCE DYNAMICALLY
         try:
             class_name = globals()[args["collection"] + "Item"]

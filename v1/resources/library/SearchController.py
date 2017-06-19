@@ -51,23 +51,32 @@ class SearchListController(ControllerList):
 
         try:
             # SELECT IN DATA BASE
-            libraryOM = library_schema.dump(self.model.query.get(self.args['library']))
-            if len(libraryOM.data) == 0:
+            library_om = library_schema.dump(self.model.query.get(self.args['library']))
+            if len(library_om.data) == 0:
                 return ExceptionMsg.set_message_error(101001, "Biblioteca no encontrada", {}), Status.HTTP.BAD_REQUEST
-            session = "RK7DB519X9JRH79RPYATX2EL1PMC6CSFJMAHMIIFI5TDJ4CTAM-01873"
-            # CREATE NEW SEARCH CRAWLER
-            search_crawler = SearchCrawler(libraryOM.data["class_name"], libraryOM.data["website"], session=session)
 
-            # GET PAGE
+            # GET SESSION
+            session = self.args["session"]
+            print "session request:" + session
+
+            # CREATE NEW SEARCH CRAWLER
+            search_crawler = SearchCrawler(library_om.data["class_name"], library_om.data["website"], session=session)
+
+            # PAGE IS UNAVAILABLE
             if not search_crawler.get_available():
                 return ExceptionMsg.set_message_error(101001, "Servicio no disponible", {}),\
                        Status.HTTP.SERVICE_UNAVAILABLE
 
             # GET SESSION DATA
-            session = search_crawler.get_session()
-            print session
+            # session = search_crawler.get_session()
+            # print "session response" + session
 
-            result = search_crawler.search(self.args)
+            # GET PAGINATION
+            if "session" in self.args and "start" in self.args:
+                result = search_crawler.pagination(self.args)
+            # SEARCH
+            else:
+                result = search_crawler.search(self.args)
 
             return result, Status.HTTP.OK
         except Exception as e:

@@ -89,6 +89,7 @@ class BookSchema(Schema):
     update_time = fields.DateTime()
     library = fields.Nested(LibrarySchema)
 
+
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return Book(**data)

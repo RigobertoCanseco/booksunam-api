@@ -62,5 +62,5 @@ class DeviceSchema(Schema):
     user = fields.Nested(UserSchema)
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return Device(**data)

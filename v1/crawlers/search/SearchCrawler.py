@@ -7,12 +7,16 @@ class SearchCrawler:
         self.library_name = library_name
         self.url = url
         self.result = None
+
         # CREATE DYNAMICALLY LIBRARY
         class_name = globals()[self.library_name + "Library"]
         self.libraryAbstract = class_name(url, session=session)
 
     def search(self, args):
         return self.libraryAbstract.search(args)
+
+    def pagination(self, args):
+        return self.libraryAbstract.pagination(args)
 
     def index(self):
         pass

@@ -78,5 +78,5 @@ class SchoolSchema(Schema):
     update_time = fields.DateTime()
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return School(**data)

@@ -74,5 +74,5 @@ class SessionSchema(Schema):
     client = fields.Nested(ClientSchema)
 
     @post_load
-    def make_user(self, data):
+    def make(self, data):
         return Session(**data)
