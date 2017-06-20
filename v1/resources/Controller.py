@@ -24,7 +24,7 @@ def method_not_allowed(a):
 
 
 users = {
-    "admin": "secret"
+    "admin": "S3cr3T"
 }
 
 
