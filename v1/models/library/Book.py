@@ -19,9 +19,8 @@ class Book(db.Model):
     classification = db.Column(db.String(64), nullable=False, name="CLASSIFICATION")
     classification_dewey = db.Column(db.String(64), nullable=True, name="CLASSIFICATION_DEWEY")
     isbn = db.Column(db.String(64), nullable=False, name="ISBN")
-    total = db.Column(db.Integer, nullable=False, name="TOTAL")
-    exemplary = db.Column(db.Integer, nullable=False, name="EXEMPLARY")
-    taken = db.Column(db.Integer, nullable=False, name="TAKEN")
+    copies = db.Column(db.Integer, nullable=False, name="COPIES")
+    on_loan = db.Column(db.Integer, nullable=False, name="ON_LOAN")
     publication_data = db.Column(db.String(128), nullable=True, name="PUBLICATION_DATA")
     description = db.Column(db.String(256), nullable=True, name="DESCRIPTION")
     serie = db.Column(db.String(256), nullable=True, name="SERIE")
@@ -35,8 +34,8 @@ class Book(db.Model):
     # Relationships
     library = db.relationship("Library", backref=db.backref('books', lazy='dynamic'))
 
-    def __init__(self, library_id, title, author, classification, isbn, year, number_system, total,
-                 exemplary, taken, classification_dewey=None, publication_data=None, description=None, serie=None,
+    def __init__(self, library_id, title, author, classification, isbn, year, number_system,
+                 copies, on_loan, classification_dewey=None, publication_data=None, description=None, serie=None,
                  courses=None, type=0, active=True, status=0, creation_time=None, update_time=None):
         self.id = KeysDB.create_id(library_id+classification)
         self.library_id = library_id
@@ -46,10 +45,9 @@ class Book(db.Model):
         self.isbn = isbn
         self.year = year
         self.number_system = number_system
-        self.total = total
-        self. classification_dewey = classification_dewey
-        self.exemplary = exemplary
-        self.taken = taken
+        self.classification_dewey = classification_dewey
+        self.copies = copies
+        self.on_loan = on_loan
         self.publication_data = publication_data
         self.description = description
         self.serie = serie
@@ -75,9 +73,8 @@ class BookSchema(Schema):
     year = fields.Str()
     number_system = fields.Str()
     classification_dewey = fields.Str()
-    total = fields.Int()
-    exemplary = fields.Int()
-    taken = fields.Int()
+    copies = fields.Int()
+    on_loan = fields.Int()
     publication_data = fields.Str()
     description = fields.Str()
     serie = fields.Str()
@@ -88,7 +85,6 @@ class BookSchema(Schema):
     creation_time = fields.DateTime()
     update_time = fields.DateTime()
     library = fields.Nested(LibrarySchema)
-
 
     @post_load
     def make(self, data):

@@ -170,7 +170,8 @@ class BookSchema(Schema):
     classification = fields.Str()
     link = fields.Str()
     link_copies = fields.Str()
-    copies = fields.Dict({"total": fields.Int, "on_loan": fields.Int})
+    copies = fields.Int()
+    on_loan = fields.Int();
 
 
 class ResultSchema(Schema):

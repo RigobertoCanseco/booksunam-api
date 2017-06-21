@@ -139,6 +139,7 @@ class BookPage(object):
 
             # FIELD COPIES
             copies = tr.find("td", class_ = "td5l").a
+            copies_dic = CleanHTML.clean_copies(copies.text)
             link_copies = str(request.url_root) + "api/v1" + '/search?' + 'session=' + self.session \
                           + '&doc_number=' + CleanHTML.get_doc_number(copies['href']) \
                           + '&doc_library=' + CleanHTML.get_doc_library(copies['href']) \
@@ -155,7 +156,8 @@ class BookPage(object):
                 "classification": classification,
                 "link": link,
                 "link_copies": link_copies,
-                "copies": CleanHTML.clean_copies(copies.text)
+                "copies": copies_dic["copies"],
+                "on_loan": copies_dic["on_loan"],
             })
             books.append(book)
 

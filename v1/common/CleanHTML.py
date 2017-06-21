@@ -38,15 +38,15 @@ class CleanHTML:
         n1 = re.compile(r'(\()(.*)(/)')
         n2 = re.compile(r'(/)(.*)(\))')
 
-        total = n1.search(text)
+        copies = n1.search(text)
         on_loan = n2.search(text)
 
-        if not (total is None and on_loan is None):
-            total = total.group()
+        if not (copies is None and on_loan is None):
+            copies = copies.group()
             on_loan = on_loan.group()
-            total = total.replace('(', '').replace(' ', '').replace('/', '')
+            copies = copies.replace('(', '').replace(' ', '').replace('/', '')
             on_loan = on_loan.replace(')', '').replace(' ', '').replace('/', '')
-            return {"total": int(total), "on_loan": int(on_loan)}
+            return {"copies": int(copies), "on_loan": int(on_loan)}
         else:
             return None
 
