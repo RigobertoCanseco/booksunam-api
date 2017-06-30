@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from flask import request
 from v1.common.CleanHTML import CleanHTML
 from v1.common.HttpConnection import HttpConnection
-from v1.models.library.Search import ResultSchema, BookSchema
+from v1.models.library.Search import ResultSearchSchema, BookSearchSchema
 
 
 class BookPage(object):
@@ -81,8 +81,8 @@ class BookPage(object):
     # <!-- filename: short-2-head  -->
     # <title>LIBROS - Resultados</title>
     def parse_page_result(self, body):
-        book_schema = BookSchema()
-        result_schema = ResultSchema()
+        book_schema = BookSearchSchema()
+        result_schema = ResultSearchSchema()
 
         soup_result_body = body
 

@@ -115,7 +115,7 @@ def validate_year(v):
 
 
 # OBJECT MODEL 'SEARCH'
-class SearchSchema(Schema):
+class QuerySearchSchema(Schema):
     # ID LIBRARY
     library = fields.Str(required=True)
     # NAME COLLECTION
@@ -163,7 +163,7 @@ class SearchSchema(Schema):
             data["session"] = None
 
 
-class BookSchema(Schema):
+class BookSearchSchema(Schema):
     id = fields.Int()
     author = fields.Str()
     title = fields.Str()
@@ -171,14 +171,13 @@ class BookSchema(Schema):
     link = fields.Str()
     link_copies = fields.Str()
     copies = fields.Int()
-    on_loan = fields.Int();
+    on_loan = fields.Int()
 
 
-class ResultSchema(Schema):
+class ResultSearchSchema(Schema):
     session = fields.Str(required = True)
     set_number = fields.Str(required = True)
     prev = fields.Str()
     next = fields.Str()
     total = fields.Int(required = True, default = 0)
-    books = fields.List(fields.Nested(BookSchema), required = True)
-
+    books = fields.List(fields.Nested(BookSearchSchema), required = True)

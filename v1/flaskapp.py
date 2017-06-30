@@ -13,6 +13,8 @@ from v1.resources.library.LibraryController import LibraryListController, Librar
 from v1.resources.library.SchoolController import SchoolListController, SchoolController
 from v1.resources.library.BookController import BookController, BookListController
 from v1.resources.library.SearchController import SearchListController
+from v1.resources.library.NewBookController import NewBookListController
+
 
 """
     API BOOKS UNAM
@@ -60,6 +62,8 @@ api.add_resource(BookListController, api_version + "/books")
 
 # ACCESS POINT 'search':
 api.add_resource(SearchListController, api_version + "/search")
+# ACCESS POINT 'news books':
+api.add_resource(NewBookListController, api_version + "/news")
 
 
 

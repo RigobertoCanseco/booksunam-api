@@ -173,3 +173,20 @@ class CleanHTML:
             return total.replace("sub_library=", "")
         else:
             return None
+
+    @staticmethod
+    def get_link_img_google(text):
+        reg = re.compile(r'("thumbnail_url":")(.*?)(")')
+        total = reg.search(text)
+
+        if total is not None:
+            total = total.group()
+            return total.replace("\"thumbnail_url\":\"", "").replace("\"", "").replace("\u0026", "&")
+        else:
+            return None
+
+    @staticmethod
+    def clean_total_registros(text):
+        return int(text.replace("Total de registros:", ""))
+
+# 12/12/2015

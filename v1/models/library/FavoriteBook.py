@@ -22,7 +22,6 @@ class BookFavorite(db.Model):
     book = db.relationship("LIB_BOOKS", backref=db.backref('books', lazy='dynamic'))
     user = db.relationship("ADM_USERS", backref=db.backref('users', lazy='dynamic'))
 
-
     def __init__(self, book_id, user_id, last_sync=None, active=True, status=0, type=0, creation_time=None,
                  update_time=None):
         """

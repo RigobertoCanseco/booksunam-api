@@ -24,7 +24,7 @@ class HttpConnection:
                 req = urllib2.Request(url)
 
             req.add_header('User-agent', 'Mozilla/5.0 (Linux i686)')
-            response = urllib2.urlopen(req, timeout=5)
+            response = urllib2.urlopen(req, timeout=30)
             return response.read()
         except HTTPError as e:
             print 'The server couldn\'t fulfill the request.'
@@ -49,7 +49,7 @@ class HttpConnection:
                 req = urllib2.Request(url, data=data)
 
             req.add_header('User-agent', 'Mozilla/5.0 (Linux i686)')
-            response = urllib2.urlopen(req, timeout=5)
+            response = urllib2.urlopen(req, timeout=30)
             return response.read()
         except HTTPError as e:
             print 'The server couldn\'t fulfill the request.'

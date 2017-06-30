@@ -3,16 +3,15 @@ from flask_restful import reqparse
 # CONTROLLER
 from v1.resources.Controller import ControllerList
 # OBJECT MODEL
-from v1.models.library.Search import QuerySearchSchema
-from v1.models.library.Library import LibrarySchema
+from v1.models.library.Library import LibrarySchema, Library
+from v1.models.library.NewBook import QueryNewBooksSchema
 # DATA MODEL
-from v1.models.library.Library import Library
 # EXCEPTIONS
 from v1.exceptions.ExceptionMsg import ExceptionMsg
 # STATUS CODES
 from v1.common import Status
 # CRAWLER
-from v1.crawlers.search.SearchCrawler import SearchCrawler
+from v1.crawlers.news.NewsBooksCrawler import NewsBooksCrawler
 
 # from pprint import pprint
 # import sys, urllib2
@@ -20,12 +19,12 @@ from v1.crawlers.search.SearchCrawler import SearchCrawler
 # sys.setdefaultencoding("latin-1")
 
 
-class SearchListController(ControllerList):
+class NewBookListController(ControllerList):
     def __init__(self):
         request = reqparse.request
         if request.method == 'GET':
             # GET ARGUMENTS
-            super(SearchListController, self).__init__(QuerySearchSchema, Library)
+            super(NewBookListController, self).__init__(QueryNewBooksSchema, Library)
         else:
             self.args = None
             self.errors = ("method_invalid", Status.HTTP.METHOD_NOT_ALLOWED)
@@ -41,13 +40,13 @@ class SearchListController(ControllerList):
 
         # SERIALIZER
         library_schema = LibrarySchema()
-        search_schema = QuerySearchSchema()
-        self.args, errors = search_schema.load(args)
+        query_news_books = QueryNewBooksSchema()
+        self.args, errors = query_news_books.load(args)
         if len(errors) > 0:
             return ExceptionMsg.set_message_error(101001, errors, {}), Status.HTTP.BAD_REQUEST
 
         # REPLACE VALUES
-        search_schema.replace_values(self.args)
+        query_news_books.replace_values(self.args)
 
         try:
             # SELECT IN DATA BASE
@@ -55,27 +54,13 @@ class SearchListController(ControllerList):
             if len(library_om.data) == 0:
                 return ExceptionMsg.set_message_error(101001, "Biblioteca no encontrada", {}), Status.HTTP.BAD_REQUEST
 
-            # GET SESSION
-            session = self.args["session"]
-            # KETCKMTGN3QL9RFI3BM6RC1M3XLKQD74I7S9YT1TG5EYRXK8BQ-17280
-            # CREATE NEW SEARCH CRAWLER
-            search_crawler = SearchCrawler(library_om.data["class_name"], library_om.data["website"], session=session)
+            # CREATE  NEW BOOKS CRAWLER
+            crawler = NewsBooksCrawler()
 
-            # PAGE IS UNAVAILABLE
-            if not search_crawler.get_available():
-                return ExceptionMsg.set_message_error(101001, "Servicio no disponible", {}),\
-                       Status.HTTP.SERVICE_UNAVAILABLE
-
-            # GET SESSION DATA
-            # session = search_crawler.get_session()
-            # print "session response" + session
-
-            # GET PAGINATION
-            if "session" in self.args and "start" in self.args:
-                result = search_crawler.pagination(self.args)
-            # SEARCH
-            else:
-                result = search_crawler.search(self.args)
+            # GET BOOKS
+            result = crawler.search(library_om.data["key"], self.args["date_from"], self.args["date_to"],
+                                    self.args["base"], self.args["order"], self.args["term"], self.args["index"],
+                                    self.args["init"], self.args["total"])
 
             return result, Status.HTTP.OK
         except Exception as e:

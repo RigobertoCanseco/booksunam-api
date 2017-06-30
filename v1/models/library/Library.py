@@ -15,6 +15,7 @@ class Library(db.Model):
     name = db.Column(db.String(64), unique=False, nullable=False, name="NAME")
     division = db.Column(db.String(128), nullable=False,  name="DIVISION")
     entity = db.Column(db.String(128), nullable=False, name="ENTITY")
+    key = db.Column(db.String(32), nullable=False, name="KEY")
     website = db.Column(db.String(128), nullable=False, name="WEBSITE")
     address = db.Column(db.String(256), nullable=False, name="ADDRESS")
     telephone = db.Column(db.String(64), nullable=False, name="TELEPHONE")
@@ -28,13 +29,14 @@ class Library(db.Model):
     # parameters = relationship("LIB_LIBRARY_PARAMETERS",  back_populates="library")
     parameters = db.relationship("LibraryParameter")
 
-    def __init__(self, class_name, name, division, entity, website, address, telephone, id=None, active=True, status=0,
+    def __init__(self, class_name, name, division, entity, key, website, address, telephone, id=None, active=True, status=0,
                  type=0, creation_time=None, update_time=None, parameters=None):
         """
         :param class_name:
         :param name: 
         :param division: 
         :param entity: 
+        :param key: 
         :param website: 
         :param address: 
         :param telephone: 
@@ -52,6 +54,7 @@ class Library(db.Model):
         self.division = division
         self.name = name
         self.website = website
+        self.key = key
         self.address = address
         self.telephone = telephone
         self.active = active
@@ -62,10 +65,10 @@ class Library(db.Model):
         self.parameters = parameters
 
     def __repr__(self):
-        return "<Library id='%s', class_name='%s', name='%s', division='%s', entity='%s', website='%s', address='%s', "\
-               "telephone='%s', active='%s', status='%s', type='%s', creation_time='%s', update_time='%s', " \
-               "parameters='%s'>" % \
-               (self.id, self.class_name, self.name, self.division, self.entity, self.website, self.address,
+        return "<Library id='%s', class_name='%s', name='%s', division='%s', entity='%s', key='%s', website='%s', " \
+               "address='%s', telephone='%s', active='%s', status='%s', type='%s', creation_time='%s', " \
+               "update_time='%s', parameters='%s'>" % \
+               (self.id, self.class_name, self.name, self.division, self.entity, self.key, self.website, self.address,
                 self.telephone, self.active, self.status, self.type, self.creation_time, self.update_time,
                 self.parameters)
 
@@ -123,6 +126,7 @@ class LibrarySchema(Schema):
     name = fields.Str()
     division = fields.Str()
     entity = fields.Str()
+    key = fields.Str()
     website = fields.Str()
     address = fields.Str()
     telephone = fields.Str()

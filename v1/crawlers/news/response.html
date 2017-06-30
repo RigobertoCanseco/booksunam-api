@@ -1,0 +1,684 @@
+<center>
+<div class=contenedor>
+   <center>
+   <table border=0 width=65%>
+      <tr>
+         <td class=pagina>P�g.: <a href="consulta.php?base=LIBIMP&inicio=0&pag=1&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">1</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=20&pag=2&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">2</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=40&pag=3&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">3</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=60&pag=4&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">4</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=80&pag=5&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">5</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=100&pag=6&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">6</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=120&pag=7&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">7</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=140&pag=8&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">8</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=160&pag=9&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">9</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=180&pag=10&totalpag=14&bloque=1&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">10</a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=200&pag=11&totalpag=14&bloque=2&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">></a>&nbsp;&nbsp;&nbsp;<a href="consulta.php?base=LIBIMP&inicio=200&pag=11&totalpag=14&bloque=2&totalbloques=2&numreg1=269&year1=2017&year2=2017&mesini=05&mesfin=06&termino=&indice=titulo&orden=titulo&clavebib=ARA %&yearlimite=&meslimite=">>>
+            </a>&nbsp;&nbsp;&nbsp;
+         </td>
+      </tr>
+   </table>
+   <div class=cuerpo>
+      <html xmlns=http://www.w3.org/1999/xhtml lang=en-US xml:lang=en-US>
+         <head>
+            <title>DGB - Alertas Bibliogr�ficas</title>
+         </head>
+         <body onload=init();>
+            <form method=post action=http://132.248.9.32/alerta/consulta.php enctype=application/x-www-form-urlencoded oncontextmenu=return false name=consulta>
+               <style type="text/css">
+                  body {
+                  background-color: #FFFFFF;
+                  margin-top: 0px;
+                  }
+                  .header {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 60%;
+                  color: #FFFFFF;
+                  background-image:url(/alerta/imagenes/img/headerAlertaBibliografica.jpg);
+                  background-repeat: no-repeat;
+                  }
+                  .menu_pag {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 60%;
+                  color:#FFFFFF;
+                  text-valign: top;
+                  background-image:url(/alerta/imagenes/img/bgMenu.jpg);
+                  background-repeat:repeat-x;
+                  }
+                  .pie_pag {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 60%;
+                  text-align: center;
+                  color: #FFFFFF;
+                  background-repeat:repeat-x;
+                  }
+                  a.nav:link {
+                  color: #ffffff;
+                  text-decoration: none;
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 100%;
+                  }
+                  a.nav:visited {
+                  color: #ffffff;
+                  font-family:Verdana, Arial, Helvetica, sans-serif;
+                  text-decoration: none;
+                  font-size: 100%;
+                  }
+                  a.nav:active
+                  {
+                  color:#ffffff;
+                  font-family:Verdana, Arial, Helvetica, sans-serif;
+                  text-decoration: none;
+                  font-size: 100%;
+                  }
+                  a.nav:hover
+                  {
+                  color: #0000FF;
+                  font-family:Verdana, Arial, Helvetica, sans-serif;
+                  text-decoration: underline;
+                  font-size: 100%;
+                  }
+                  .enlaces{
+                  font-family:Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #FFFFFF;
+                  background:#B2ABC4;
+                  }
+                  .texto {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #000000;
+                  text-align:justify;
+                  }
+                  .creditos {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 70%;
+                  color: #000000;
+                  text-align:center;
+                  }
+                  .texto2 {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #000000;
+                  text-align:center;
+                  }
+                  .textovisitas {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #000000;
+                  text-align: center;
+                  }
+                  .titulo {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 110%;
+                  font-weight: bold;
+                  color:#000066;
+                  text-align: center;
+                  }
+                  .subtitulo {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 70%;
+                  color:#000000;
+                  text-align: center;
+                  }
+                  #morado {
+                  color:#0000FF;
+                  }
+                  table.modulo {
+                  background-color: #FFFFFF;
+                  text-align: justify;
+                  }
+                  .pagina {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 70%;
+                  color: #660066;
+                  text-align: right;
+                  }
+                  table.tabla
+                  {
+                  border-collapse:collapse;
+                  border:1px solid #663366;
+                  }
+                  td.encabezado{
+                  background-color:#CCCCCC;
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #000000;
+                  text-align: center;
+                  font-weight: bold;
+                  }
+                  #center
+                  {
+                  text-align:center;
+                  }
+                  #texto {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 100%;
+                  color: #000000;
+                  text-align:justify;
+                  }
+                  .listatab{
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 90%;
+                  color:#000033;
+                  text-align: left;
+                  }
+                  #rojo
+                  {
+                  color:#CC0066;
+                  }
+                  .boton{
+                  font-size:10px;
+                  font-family:Verdana,Helvetica;
+                  font-weight:bold;
+                  color:white;
+                  background:#9999CC;
+                  border:0px;
+                  width:100px;
+                  height:19px;
+                  }
+                  .Estilo1 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 110%; font-weight: bold; color: #FFFFFF; text-align: center; }
+                  .Estilo3 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 110%; font-weight: bold; color: #990066;}
+                  .Estilo4 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 90%; color: #000000; text-align: center; }
+                  div.contenedor {
+                  width: 1200px;
+                  }
+                  div.cuerpo {
+                  height: 600px;
+                  overflow: auto;
+                  border-bottom: 1px solid #FFFFFF;
+                  border-right: 0px solid #FFFFFF;
+                  }
+               </style>
+               <style type="text/css">
+                  .texto {
+                  font-family: Verdana, Arial, Helvetica, sans-serif;
+                  font-size: 80%;
+                  color: #000000;
+                  text-align:left;
+                  }
+               </style>
+               <center>
+               <table cellspacing=2 cellpadding=10 border="1" width=70% bordercolor="#5B85AD">
+                  <th width=1% bgcolor=#F2F2F2 colspan=3 class=texto>
+                     <center>
+                        <font color=#6289B0 size=3 face=Arial>Facultad de Estudios Superiores Arag�n                                       <br>                                                                                                           </font>
+                        <font color=#6289B0 size=-1>
+                           <p>Alerta Bibliogr�fica<br> (Libros Impresos)
+                           <p>
+                     </center>
+                     Periodo: Mayo/2017 a Junio/2017<br> <br><p align=right>P�g. 1</font>
+                  </th>
+                  <tr>
+                     <td colspan=3 align=right><font face=Arial size=2><b>Total de registros: 269</b></font></td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>1</td>
+                     <td valign=top class=texto>NA680 P66 <br> Powers, Alan, 1955- <br> <I>100 years of architecture  /  Alan Powers <br></I> London : Laurence King Publishing, [2015] <br> 304 p�ginas : ilustraciones <br>      ISBN: 9781780678238 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9781780678238">
+                              <div id="libro1"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover1(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro1').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9781780678238&callback=addTheCover1></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>2</td>
+                     <td valign=top class=texto>JC365 F87 <br>  <I>A future for small states overcoming vulnerability  /  Report by a Commonwealth Advisory Group ; Dame Eugenia Charles, Mr. Andreas Jocovides, Hon Ms Fiam� Naomi Mata'afa, Mr Ken Ros, Mr Tim Thahane, Mr Natarajan Krishnan, Dr Edgar Mizzi, HE Professor Havelock Ross-Brewster, Mr Taniela Tufui <br></I> London : Commonwealth Secretariat, [1997] <br> 177 p�ginas : ilustraciones <br>      ISBN: 0850925118 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=0850925118">
+                              <div id="libro2"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover2(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro2').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:0850925118&callback=addTheCover2></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>3</td>
+                     <td valign=top class=texto>DK40 B67 <br> Boterbloem, Kees, 1962- autor <br> <I>A history of Russia and its empire : from Mikhail Romanov to Vladimir Putin  /  Kees Boterbloem <br></I> Lanham : Rowman & Littlefield Publishers, Inc., [2014] <br> xv, 347 p�ginas : ilustraciones <br>      ISBN: 9780742568389 encuadernado en tela : papel alcalino,9780742568396 r�stica : papel alcalino <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9780742568389">
+                              <div id="libro3"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover3(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro3').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9780742568389&callback=addTheCover3></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>4</td>
+                     <td valign=top class=texto>NA1011.5F7 A3313 <br>  <I>Accidentism : Josef Frank  /  editors, Mikael Bergquist, Olof Mich�lsen ; translation into english Ruth Kvarnstr�m-Jones <br></I> Basel : Birkh�user-Publishers for Architecture, [2016] <br> 95 p�ginas : ilustraciones (algunas a color) <br>      ISBN: 9783035611199 papel libre de �cido <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9783035611199">
+                              <div id="libro4"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover4(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro4').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9783035611199&callback=addTheCover4></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>5</td>
+                     <td valign=top class=texto>TD194.7 A33 <br>  <I>Accounting for the environment : more talk and little progress  /  edited by Martin Freedman, Bikki Jaggi <br></I> Bingley, UK : Emerald, 2014 <br> xvi, 130 p�ginas <br>      ISBN: 9781781903032 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9781781903032">
+                              <div id="libro5"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover5(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro5').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9781781903032&callback=addTheCover5></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>6</td>
+                     <td valign=top class=texto>TH435 C668 <br>  <I>Activecost costos de construcci�n  / <br></I> M�xico, D.F. : Bimsa Reports, 2010- <br> vol�menes <br>  Nota general: Var�a la actualizaci�n en cada volumen <br> Nota de contenido: Costos de construcci�n -- Edificaci�n -- Instalaciones hidr�ulicas y sanitarias -- Instalaciones el�ctricas y telecomunicaciones -- Infraestructura y urbanizaci�n -- Obra y mantenimiento industrial -- Valuador, costos de construcci�n por m2 <br>    ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=">
+                              <div id="libro6"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover6(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro6').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:&callback=addTheCover6></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>7</td>
+                     <td valign=top class=texto>JQ1875 M39 <br> Mazrui, Ali AlBCAmin, autor <br> <I>African institutions : challenges to political, social, and economic foundations of Africa's development  /  Ali A. Mazrui and Francis Wiafe-Amoako <br></I> Lanham, Maryland : Rowman & Littlefield, [2016] <br> xi, 184 p�ginas <br>      ISBN: 9781442239524 encuadernado en tela papel alcalino,9781442239531 r�stica papel alcalino <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9781442239524">
+                              <div id="libro7"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover7(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro7').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9781442239524&callback=addTheCover7></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>8</td>
+                     <td valign=top class=texto>HN523.5 A47 <br>  <I>After the Soviet Empire : legacies and pathways  /  edited by Sven Eliaeson, Lyudmila Harutyunyan, Larissa Titarenko <br></I> Leiden : Boston ; Brill, [2016] <br> 376 p�ginas : ilustraciones <br>      ISBN: 9789004291447 empastado, cubierta dura papel alcalino <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789004291447">
+                              <div id="libro8"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover8(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro8').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789004291447&callback=addTheCover8></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>9</td>
+                     <td valign=top class=texto>E744 K39 <br> Kay, Sean, 1967- , autor <br> <I>America's search for security : the triumph of idealism and the return of realism  /  Sean Kay <br></I> Lanham, Maryland : Rowman & Littlefield, [2014] <br> xvi, 313 p�ginas <br>      ISBN: 9781442225626 encuadernado en tela papel alcalino,9781442225633 r�stica papel alcalino <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9781442225626">
+                              <div id="libro9"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover9(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro9').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9781442225626&callback=addTheCover9></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>10</td>
+                     <td valign=top class=texto>TK9152.163 A53 <br>  <I>American Society of Civil Engineers seismic design criteria for structures, systems, and components in nuclear facilities  /  ASCE, SEI, Structural Engineering Institute of the American Society of Civil Engineers <br></I> Reston, Virginia : American Society of Civil Engineers, c2005 <br> xvi, 81 p�ginas : ilustraciones <br>  Nota general: "This document uses both the International System of Units (SI) and customary units." <br>    ISBN: 0784407622 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=0784407622">
+                              <div id="libro10"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover10(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro10').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:0784407622&callback=addTheCover10></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>11</td>
+                     <td valign=top class=texto>JZ1242 B43 <br> Beach, Derek, autor <br> <I>Analyzing foreign policy  /  Derek Beach <br></I> Basingstoke, Hampshire [U.K.] : Palgave Macmillan, 2012 <br> xiv, 280 p�ginas : ilustraciones <br>      ISBN: 9780230237384 empastado, cubierta dura,9780230237391 r�stica <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9780230237384">
+                              <div id="libro11"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover11(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro11').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9780230237384&callback=addTheCover11></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>12</td>
+                     <td valign=top class=texto>NA2450.G3 M87 <br> Scholtz, Andrea, 1957-, autor <br> <I>Arno Design  /  autorin-author, Andrea Scholtz ; herausgegeben von Arno Design, M�nchen ; �bersetzung, Beverley Locke <br></I> Stuttgart : Avedition, [2014] <br> 247 p�ginas : ilustraciones <br>      ISBN: 9783899861990 empastado, cubierta dura <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9783899861990">
+                              <div id="libro12"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover12(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro12').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9783899861990&callback=addTheCover12></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>13</td>
+                     <td valign=top class=texto>NA1555 K67 2014 <br> Korniusza, Andrea, autor <br> <I>Arquitectos japoneses  /  editor, Oscar Asensio ; redaccion, Andrea Korniusza <br></I> [Barcelona] : Lexus, 2014 <br> 196 p�ginas : ilustraciones a color, planos <br>      ISBN: 9789962041016 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789962041016">
+                              <div id="libro13"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover13(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro13').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789962041016&callback=addTheCover13></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>14</td>
+                     <td valign=top class=texto>NA6695 A74 2014 <br> Asensio, �scar, autor, editor <br> <I>Arquitectura y arte  /  autor y director creativo Oscar Asencio ; redacci�n Andrea Korniusza <br></I> China : Lexus, 2014 <br> 190 p�ginas : ilustraciones a color, planos <br>  Nota general: "Museo de Arte Tampa, Three Theaters Warner, Universidad de Michigan, Centro de Artes Interpretativas Matsumoto, Gran Museo Tianjin Swanium, Museo de Arte Denver, Museo Guggenheim en Guadalajara, Museo de Arte Taubman, Centro cultural Coreano..." cubierta <br>    ISBN: 9789962041009 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789962041009">
+                              <div id="libro14"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover14(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro14').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789962041009&callback=addTheCover14></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>15</td>
+                     <td valign=top class=texto>NA2542.36 A79 <br>  <I>Arquitectura y sustentabilidad : como atraviesa la crisis ambiental la problem�tica del proyecto  /  Alejandro Delucchi (compilador) <br></I> Buenos Aires : Dise�o Editorial, 2016 <br> 290 p�ginas : ilustraciones <br>      ISBN: 9789874000132 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789874000132">
+                              <div id="libro15"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover15(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro15').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789874000132&callback=addTheCover15></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>16</td>
+                     <td valign=top class=texto>NA2543.S6 A77 <br>  <I>Art in context  /  editors in chief, Markus Berger, Liliane Wong ; special editor, Patricia C. Phillips <br></I> [Basel] : Birkh�user ; [Providence, RI] : Department of Interior Architecture, Rhode Island School of Design, [2016] <br> 111 p�ginas : ilustraciones (principalmente a color) <br>      ISBN: 9783035608342,9780983272359 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9783035608342,9780983272359">
+                              <div id="libro16"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover16(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro16').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9783035608342,9780983272359&callback=addTheCover16></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>17</td>
+                     <td valign=top class=texto>NA2542.35 A76 <br>  <I>At extremes : bracket - architecture, environment, digital culture  /  Maya Przybylski, Lola Sheppard, editors <br></I> Barcelona : Actar, [2015] <br> 263 p�ginas : ilustraciones <br>      ISBN: 9780989331760 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9780989331760">
+                              <div id="libro17"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover17(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro17').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9780989331760&callback=addTheCover17></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>18</td>
+                     <td valign=top class=texto>NA7125 S35 <br> S�nchez Vidiella, �lex, 1976- , autor <br> <I>Atlas de casas contempor�neas  /  �lex S�nchez Vidiella, Virginia Rodr�guez C�nepa, Andrea Korniusza <br></I> [Santiago de Chile] : Lexus Editores, 2012 <br> 599 p�ginas : ilustraciones <br>      ISBN: 9789962040569 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789962040569">
+                              <div id="libro18"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover18(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro18').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789962040569&callback=addTheCover18></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>19</td>
+                     <td valign=top class=texto>PS3569.H67 B3518 1984 <br> Shorris, Earl, 1936-, autor <br> <I>Bajo el estigma del quinto sol  /  Earl Shorris ; tr. R. Quijano R. <br></I> M�xico : Origen ; Editorial Planeta, 1984- <br> vol�menes <br>  Nota general: Traduccion de: Under the fifth sun <br>    ISBN: 968-847-074-0 (obra completa) <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=968 847 074 0">
+                              <div id="libro19"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover19(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro19').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:968 847 074 0&callback=addTheCover19></script>
+                        </center>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td valign=top class=texto>20</td>
+                     <td valign=top class=texto>TH4818.B3 S35 2012 <br> S�nchez Vidiella, �lex, autor <br> <I>Bamb� : materiales de arquitectura  /  edici�n y textos, �lex S�nchez Vidiella <br></I> Barcelona : Lexus, 2012 <br> 254 p�ginas : ilustraciones, fotos <br>      ISBN: 9789962040538 <br> ARA </td>
+                     <td valign=top class=texto>
+                        <center>
+                           &nbsp;
+                           <a target=_blank href="http://books.google.com/books?lr=&cd=1&h1=es&as_brr=0&q=9789962040538">
+                              <div id="libro20"></div>
+                           </a>
+                           <script type="text/javascript">
+                              function addTheCover20(booksInfo){
+                                      for (i in booksInfo) {
+                                      var book = booksInfo[i];
+                                      if (book.thumbnail_url != undefined){
+                                              document.getElementById('libro20').innerHTML =   '<img src="' + book.thumbnail_url + '"/>';
+                                      }
+                                      }
+                              }
+                           </script>
+                           <script src=http://books.google.com/books?jscmd=viewapi&bibkeys=ISBN:9789962040538&callback=addTheCover20></script>
+                        </center>
+                     </td>
+                  </tr>
+               </table>
+   </div>
+</div>
+<p>
+<center>
+</form>
+<p><center>
+<table border="0" cellpadding="0" cellspacing="0" width="750" align="center">
+<tr>
+<td colspan=3 height=60 align=center valign=middle class=creditos>
+<a href=creditos.php target=_parent style=color:#4085C9>Cr�ditos</a>&nbsp; | &nbsp;<a href=mailto:iduranm\@dgb.unam.mx?cc=isela\@dgb.unam.mx&Subject=Alerta%20Bibliogr�fica style=color:#4085C9>Contacto</a>&nbsp; | &nbsp;<a href=alerta.php target=_parent style=color:#4085C9>Nueva B�squeda</a> </font>
+</td>
+</tr>
+<tr>
+<td colspan=3 height=60 align=center valign=middle bgcolor=#5389C0 class=pie_pag><font face=Arial size=1>
+<p>Hecho en M�xico, todos los derechos reservados 2010. Esta p�gina puede ser reproducida con fines no lucrativos, siempre y cuando no se mutile, se cite la fuente completa y su direcci�n electr�nica. Sitio web administrado por: Direcci�n General de Bibliotecas, UNAM.</p>
+</td>
+</tr>
+</table>
+</center>
