@@ -1,5 +1,4 @@
 # coding=utf-8
-import datetime
 from bs4 import BeautifulSoup
 from urllib import urlencode
 from v1.common.CleanHTML import CleanHTML
@@ -21,8 +20,6 @@ class NewsBooksCrawler:
         if order is None:
             order = "title"
 
-        # year_limit = '{:02d}'.format(date_to.year - date_from.year)
-        # month_limit = '{:02d}'.format(date_to.month - date_from.month)
         a = {
             "base": base,
             "year1": str(date_from.year),

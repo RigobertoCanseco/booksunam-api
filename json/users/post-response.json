@@ -1,0 +1,31 @@
+{
+  "status": 1,
+  "update_time": "2017-07-13T01:28:45+00:00",
+  "name": "RIGOBERTO",
+  "lastname": "CANSECO",
+  "creation_time": "2017-07-13T01:28:45+00:00",
+  "school": {
+    "website": null,
+    "status": 0,
+    "update_time": "2017-06-11T00:38:26+00:00",
+    "name": "FES Arag\u00f3n",
+    "creation_time": "2017-06-11T00:38:26+00:00",
+    "telephone": null,
+    "longitude": null,
+    "latitude": null,
+    "address": null,
+    "active": true,
+    "mail": null,
+    "type": 0,
+    "id": "2398aa6a722d171da04ca3806e6b2d4d"
+  },
+  "id": "607cc1b4290064c8296f806fd8b8bcf6",
+  "phone": null,
+  "account_number": "413113054",
+  "active": true,
+  "mail": "cansecorigobeto@gmail.com",
+  "genre": "MALE",
+  "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+  "type": 1,
+  "school_id": "2398aa6a722d171da04ca3806e6b2d4d"
+}

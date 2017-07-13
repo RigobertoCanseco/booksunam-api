@@ -76,11 +76,11 @@ class CleanHTML:
         :return: 
         """
         reg = re.compile(r'(set_number=)[0-9]*')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("set_number=", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("set_number=", "")
         else:
             return None
 
@@ -94,11 +94,11 @@ class CleanHTML:
         :return: 
         """
         reg = re.compile(r'(set_entry=)[0-9]*')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("set_entry=", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("set_entry=", "")
         else:
             return None
 
@@ -112,11 +112,11 @@ class CleanHTML:
         :return: 
         """
         reg = re.compile(r'(jump=)[0-9]*')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("jump=", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("jump=", "")
         else:
             return None
 
@@ -130,11 +130,11 @@ class CleanHTML:
                :return: 
                """
         reg = re.compile(r'(doc_library=)(.*?)(&)')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("doc_library=", "").replace("&", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("doc_library=", "").replace("&", "")
         else:
             return None
 
@@ -148,11 +148,11 @@ class CleanHTML:
         :return: 
         """
         reg = re.compile(r'(doc_number=)[0-9]*')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("doc_number=", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("doc_number=", "")
         else:
             return None
 
@@ -166,22 +166,42 @@ class CleanHTML:
                :return: 
                """
         reg = re.compile(r'(sub_library=)(.*)')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("sub_library=", "")
+        if r is not None:
+            r = r.group()
+            return r.replace("sub_library=", "")
         else:
             return None
 
     @staticmethod
     def get_link_img_google(text):
         reg = re.compile(r'("thumbnail_url":")(.*?)(")')
-        total = reg.search(text)
+        r = reg.search(text)
 
-        if total is not None:
-            total = total.group()
-            return total.replace("\"thumbnail_url\":\"", "").replace("\"", "").replace("\u0026", "&")
+        if r is not None:
+            r = r.group()
+            return r.replace("\"thumbnail_url\":\"", "").replace("\"", "").replace("\u0026", "&")
+        else:
+            return None
+
+    def get_link_info_url(text):
+        reg = re.compile(r'("info_url":")(.*?)(")')
+        r = reg.search(text)
+
+        if r is not None:
+            r = r.group()
+            return r.replace("\"info_url\":\"", "").replace("\"", "").replace("\u0026", "&")
+        else:
+            return None
+
+    def get_link_preview_url(text):
+        reg = re.compile(r'("preview_url":")(.*?)(")')
+        r = reg.search(text)
+
+        if r is not None:
+            r = r.group()
+            return r.replace("\"preview_url\":\"", "").replace("\"", "").replace("\u0026", "&")
         else:
             return None
 

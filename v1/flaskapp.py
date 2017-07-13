@@ -5,6 +5,8 @@ from v1 import app, api, api_version
 # ADMIN
 from v1.resources.admin.ClientController import ClientController, ClientListController
 from v1.resources.admin.UserController import UserListController, UserController
+from v1.resources.admin.LoginController import LoginController
+from v1.resources.admin.LogoutController import LogoutController
 from v1.resources.admin.AccountController import AccountController, AccountListController
 from v1.resources.admin.DeviceController import DeviceController, DeviceListController
 from v1.resources.admin.SessionController import SessionController, SessionListController
@@ -25,6 +27,14 @@ from v1.resources.library.NewBookController import NewBookListController
 
 """
 
+
+# ACCESS POINT 'users':
+api.add_resource(UserController, api_version + "/users/<string:id>")
+api.add_resource(UserListController, api_version + "/users")
+api.add_resource(LoginController, api_version + "/users/login")
+api.add_resource(LogoutController, api_version + "/users/logout")
+
+
 # ACCESS POINT 'account':
 api.add_resource(AccountController, api_version + "/accounts/<string:id>")
 api.add_resource(AccountListController, api_version + "/accounts")
@@ -41,10 +51,6 @@ api.add_resource(ClientListController, api_version + "/clients")
 # ACCESS POINT 'schools':
 api.add_resource(SchoolController, api_version + "/schools/<string:id>")
 api.add_resource(SchoolListController, api_version + "/schools")
-
-# ACCESS POINT 'users':
-api.add_resource(UserController, api_version + "/users/<string:id>")
-api.add_resource(UserListController, api_version + "/users")
 
 
 

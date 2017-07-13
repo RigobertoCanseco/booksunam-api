@@ -13,6 +13,8 @@ setup(name='Books UNAM API',
             'Flask-RESTful>=0.3.5',
             'Flask-HTTPAuth>=3.2.3',
             'marshmallow>=3.0.0.b2',
-            'beautifulsoup4>=4.6.0'
+            'beautifulsoup4>=4.6.0',
+            'sendgrid>=1.2',
+            'python-dateutil>=2.6.1'
       ],
      )

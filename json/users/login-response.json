@@ -1,0 +1,51 @@
+{
+  "status": 0,
+  "update_time": "2017-07-13T01:25:23+00:00",
+  "user_id": "607cc1b4290064c8296f806fd8b8bcf6",
+  "creation_time": "2017-07-13T00:18:34+00:00",
+  "token": "0d79416c-6794-11e7-aa37-0071cc2af855",
+  "client": {
+    "status": 0,
+    "update_time": null,
+    "name": "CLIENT_ANDROID",
+    "creation_time": "2017-07-03T18:26:12+00:00",
+    "token": "40a60830-6047-11e7-8d1d-0071cc2af855",
+    "active": true,
+    "type": 0,
+    "id": "33ca8c20fc3207a5e31f85b11ffdd886"
+  },
+  "user": {
+    "status": 1,
+    "update_time": "2017-07-12T22:47:04+00:00",
+    "name": "RIGOBERTO",
+    "lastname": "CANSECO",
+    "creation_time": "2017-07-12T22:47:04+00:00",
+    "school": {
+      "website": null,
+      "status": 0,
+      "update_time": "2017-06-11T00:38:26+00:00",
+      "name": "FES Arag\u00f3n",
+      "creation_time": "2017-06-11T00:38:26+00:00",
+      "telephone": null,
+      "longitude": null,
+      "latitude": null,
+      "address": null,
+      "active": true,
+      "mail": null,
+      "type": 0,
+      "id": "2398aa6a722d171da04ca3806e6b2d4d"
+    },
+    "id": "607cc1b4290064c8296f806fd8b8bcf6",
+    "phone": null,
+    "account_number": "413113054",
+    "active": true,
+    "mail": "cansecorigobeto@gmail.com",
+    "genre": "MALE",
+    "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
+    "type": 1,
+    "school_id": "2398aa6a722d171da04ca3806e6b2d4d"
+  },
+  "client_id": "33ca8c20fc3207a5e31f85b11ffdd886",
+  "active": true,
+  "type": 0
+}

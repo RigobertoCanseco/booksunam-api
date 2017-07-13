@@ -1,8 +1,14 @@
+import datetime
+from dateutil.relativedelta import *
 from v1 import db
 from v1.common.KeysDB import KeysDB
 from marshmallow import Schema, fields, post_load
 from v1.models.admin.Client import ClientSchema
 from v1.models.admin.User import UserSchema
+
+
+def get_expiration():
+    return datetime.datetime.now() + relativedelta(months = +1)
 
 
 # DATA MODEL 'SESSION'
@@ -18,7 +24,7 @@ class Session(db.Model):
     active = db.Column(db.Boolean, nullable=False, default=True, name="ACTIVE")
     status = db.Column(db.Integer, nullable=False, default=0, name="STATUS")
     type = db.Column(db.Integer, nullable=False, default=0, name="TYPE")
-    expiration_time = db.Column(db.DateTime, default=db.func.current_timestamp(), name="EXPIRATION_TIME")
+    expiration_time = db.Column(db.DateTime, default=get_expiration(), onupdate = get_expiration(), name="EXPIRATION_TIME")
     creation_time = db.Column(db.DateTime, default=db.func.current_timestamp(), name="CREATION_TIME")
     update_time = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp(),
                             name="UPDATE_TIME")
@@ -27,7 +33,7 @@ class Session(db.Model):
     user = db.relationship("User", backref=db.backref("sessions", lazy="dynamic"))
     client = db.relationship("Client", backref=db.backref("sessions", lazy="dynamic"))
 
-    def __init__(self, user_id, client_id, active=True, status=0, type=0, expiration_time=None, creation_time=None,
+    def __init__(self, user_id, client_id, token=None, active=True, status=0, type=0, expiration_time=None, creation_time=None,
                  update_time=None):
         """
         :param user_id: 
@@ -41,7 +47,11 @@ class Session(db.Model):
         """
         self.user_id = user_id
         self.client_id = client_id
-        self.token = KeysDB.uuid()
+        if token is None:
+            self.token = KeysDB.uuid()
+        else:
+            self.token = token
+
         self.active = active
         self.status = status
         self.type = type
@@ -54,10 +64,6 @@ class Session(db.Model):
                "expiration_time='%s', creation_time='%s', update_time='%s'>" \
                % (self.user_id, self.client_id, self.token, self.active, self.status, self.type, self.expiration_time,
                   self.creation_time, self.update_time)
-
-    def __get_expiration(self):
-        days = 3
-        return self.creation_time + days
 
 
 # OBJECT MODEL 'SESSION'

@@ -4,12 +4,12 @@ from flask_httpauth import HTTPBasicAuth
 from flask_restful import Api
 
 
-# APP = FLASK APPLICATION
+# APP = FLASK APPLICATION Basic YWRtaW46UzNjcjNU
 app = Flask(__name__)
 # PRODUCTION
-app.config.from_pyfile("config/openshift.cfg")
+# app.config.from_pyfile("config/openshift.cfg")
 # DEVELOP
-#app.config.from_pyfile("config/localhost.cfg")
+app.config.from_pyfile("config/localhost.cfg")
 
 # DB = DATABASE SQL-ALCHEMY
 db = SQLAlchemy()
