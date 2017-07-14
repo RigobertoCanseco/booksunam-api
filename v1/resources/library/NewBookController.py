@@ -24,7 +24,7 @@ class NewBookListController(ControllerList):
         request = reqparse.request
         if request.method == 'GET':
             # GET ARGUMENTS
-            super(NewBookListController, self).__init__(QueryNewBooksSchema, Library)
+            super(NewBookListController, self).__init__(QueryNewBooksSchema, Library, [])
         else:
             self.args = None
             self.errors = ("method_invalid", Status.HTTP.METHOD_NOT_ALLOWED)

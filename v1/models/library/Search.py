@@ -1,4 +1,4 @@
-from marshmallow import Schema, fields, ValidationError
+from marshmallow import Schema, fields, post_load, ValidationError, validate, pre_load, pre_dump, post_dump
 
 
 TYPES = dict(basic="basic", multifield="multi-field", advanced="advanced")
@@ -57,7 +57,7 @@ def validate_year(v):
     local_base=[Book="l0801"]
     - type
     type=[basic"basic", multifield="multi-field", advanced="advanced"]
-    - request                     
+    - request : Texto a buscar                    
     request=[string]                        
     - field                       
     find_code=[all="WRD", title="WTT", author="WAT", theme="WSS", editorial="WPU", place="WPL", year="WYR", serie="WSR",
@@ -134,12 +134,24 @@ class QuerySearchSchema(Schema):
     session = fields.Str(required = False, default = "")
     start = fields.Int(required = False)
 
-    def replace_values(self, data):
+    @post_load
+    def make(self, data):
+        pass
+
+    @pre_load
+    def preload(self, data):
+        if not "library" in data:
+            raise ValidationError("Search must have a 'library' param.")
 
         if "request" in data:
             data["request"] = data['request'].encode('UTF-8')
+        else:
+            raise ValidationError("Search must have a 'request' param.")
 
-        if "field" in data:
+        if not "collection" in data:
+            raise ValidationError("Search must have a 'collection' param.")
+
+        if "type" in data:
             data["type"] = TYPES[data["type"]]
         else:
             data["type"] = "basic"
@@ -147,20 +159,30 @@ class QuerySearchSchema(Schema):
         if "field" in data:
             data["field"] = FIELDS[data["field"]]
         else:
-            data["field"] = "WRD"
+            data["field"] = "all"
 
         if "split" in data:
             data["split"] = SPLIT[data["split"]]
         else:
-            data["split"] = "N"
+            data["split"] = "yes"
 
         if "language" in data:
             data["language"] = LANGUAGE[data["language"]]
         else:
-            data["language"] = ""
+            data["language"] = "all"
 
         if "session" not in data:
-            data["session"] = None
+            data["session"] = ""
+
+        print data
+
+    @pre_dump
+    def pre_dump(self, data):
+        pass
+
+    @post_dump
+    def post_dump(self, data):
+        pass
 
 
 class BookSearchSchema(Schema):

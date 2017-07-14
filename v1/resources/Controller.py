@@ -5,7 +5,7 @@ from flask import jsonify, render_template, send_from_directory
 from flask_restful import reqparse, Resource
 from sqlalchemy.exc import *
 # APP, DATABASE, AUTHENTICATION
-from v1.models.admin.Session import Session
+from v1.models.admin.Session import Session, SessionSchema
 from v1.models.admin.Client import Client
 from v1 import app, db, auth
 # EXCEPTIONS
@@ -17,13 +17,13 @@ from v1.exceptions.ExceptionMsg import ExceptionMsg
 # NOT_FOUND
 @app.errorhandler(404)
 def page_not_found(a):
-    return jsonify(ExceptionMsg.set_message_error(100000, "Elemento no encontrado", {})), Status.HTTP.NOT_FOUND
+    return jsonify(ExceptionMsg.message_to_page_not_found()), Status.HTTP.NOT_FOUND
 
 
 # METHOD_NOT_ALLOWED
 @app.errorhandler(405)
 def method_not_allowed(a):
-    return jsonify(ExceptionMsg.set_message_error(100000, "Método no permitido", {})), Status.HTTP.METHOD_NOT_ALLOWED
+    return jsonify(ExceptionMsg.message_to_method_not_allowed()), Status.HTTP.METHOD_NOT_ALLOWED
 
 
 users = {
@@ -66,9 +66,10 @@ class Controller(Resource):
         # GET CLIENT
         self.client = Client.query.filter_by(token = request.headers.get("Client-Token")).first()
         if self.client is None or self.client.active is False:
-            self.errors = ("bad_request", Status.HTTP.UNAUTHORIZED)
+            self.errors = (ExceptionMsg.message_to_bad_token_client(), Status.HTTP.UNAUTHORIZED)
         else:
-            self.session = Client.query.filter_by(token = request.headers.get("User-Token")).first()
+            # GET SESSION
+            self.user_token = request.headers.get("User-Token")
             if request.method == 'GET':
                 self.schema = Schema()
 
@@ -82,91 +83,165 @@ class Controller(Resource):
                 self.schema = Schema()
 
             elif request.method == 'POST':
-                if request.data == "" or request.content_length == 0:
-                    self.errors = ("bad_request", Status.HTTP.BAD_REQUEST)
-                elif request.mimetype != 'application/json':
-                    self.errors = ("not_json", Status.HTTP.BAD_REQUEST)
-                else:
-                    self.json_data = request.json
-                self.schema = Schema()
+                self.errors = (ExceptionMsg.message_to_method_not_allowed(), Status.HTTP.METHOD_NOT_ALLOWED)
+
+                # if request.data == "" or request.content_length == 0:
+                #     self.errors = (ExceptionMsg.message_to_not_content(), Status.HTTP.BAD_REQUEST)
+                # elif request.mimetype != 'application/json':
+                #     self.errors = (ExceptionMsg.message_to_not_json(), Status.HTTP.BAD_REQUEST)
+                # else:
+                #     self.json_data = request.json
+                # self.schema = Schema()
 
         super(Controller, self).__init__()
 
     def get(self, id):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'GET' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < \
-                    datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
+
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # session = session_schema.dump(session)
+
+        # VALIDATE TOKEN SESSION WITH  USER ID
+        # if not id == session.data['user']['id']:
+        #   return ExceptionMsg.set_message_error(101001, "Token is invalid", {}), Status.HTTP.METHOD_NOT_ALLOWED
 
         # SELECT IN  DATA BASE
         try:
-            library = self.model.query.get(id)
-            result = self.schema.dump(library)
+            data = self.model.query.get(id)
+            if data is None:
+                return ExceptionMsg.message_to_object_not_found(), Status.HTTP.NOT_FOUND
+            result = self.schema.dump(data)
             return result.data, Status.HTTP.OK
+        except IntegrityError as e:
+            print "IntegrityError"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except OperationalError as e:
+            print "OperationalError:"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except SQLAlchemyError as e:
+            print "SQLAlchemyError:"
+            print e.message
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
     def put(self, id):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'PUT' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < \
-                    datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
 
-        # SELECT IN  DATA BASE
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # session = session_schema.dump(session)
+
+        # SELECT IN DATA BASE
         try:
-            library = self.model.query.get(id)
-            result = self.schema.dump(library)
+            data = self.model.query.get(id)
+            if data is None:
+                return ExceptionMsg.message_to_object_not_found(), Status.HTTP.NOT_FOUND
+            result = self.schema.dump(data)
             return result.data, Status.HTTP.OK
+        except IntegrityError as e:
+            print "IntegrityError"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except OperationalError as e:
+            print "OperationalError:"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except SQLAlchemyError as e:
+            print "SQLAlchemyError:"
+            print e.message
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
     def patch(self, id):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'PATCH' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < \
-                    datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
 
-        # SELECT IN  DATA BASE
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # result = session_schema.dump(session)
+
+        # SELECT IN DATA BASE
         try:
-            library = self.model.query.get(id)
-            result = self.schema.dump(library)
+            data = self.model.query.get(id)
+            if data is None:
+                return ExceptionMsg.message_to_object_not_found(), Status.HTTP.NOT_FOUND
+            result = self.schema.dump(data)
             return result.data, Status.HTTP.OK
+        except IntegrityError as e:
+            print "IntegrityError"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except OperationalError as e:
+            print "OperationalError:"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except SQLAlchemyError as e:
+            print "SQLAlchemyError:"
+            print e.message
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
     def delete(self, id):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'DELETE' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < \
-                    datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
+
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # result = session_schema.dump(session)
 
         # SELECT IN  DATA BASE
         try:
-            library = self.model.query.get(id)
-            result = self.schema.dump(library)
+            data = self.model.query.get(id)
+            if data is None:
+                return ExceptionMsg.message_to_object_not_found(), Status.HTTP.NOT_FOUND
+            result = self.schema.dump(data)
             return result.data, Status.HTTP.OK
+        except IntegrityError as e:
+            print "IntegrityError"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except OperationalError as e:
+            print "OperationalError:"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except SQLAlchemyError as e:
+            print "SQLAlchemyError:"
+            print e.message
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
 
 class ControllerList(Resource):
@@ -185,16 +260,17 @@ class ControllerList(Resource):
         self.client = Client.query.filter_by(token = request.headers.get("Client-Token")).first()
 
         if self.client is None or self.client.active is False:
-            self.errors = ("bad_request", Status.HTTP.UNAUTHORIZED)
+            self.errors = (ExceptionMsg.message_to_bad_token_client(), Status.HTTP.UNAUTHORIZED)
         else:
-            self.session = Session.query.filter_by(token = request.headers.get("User-Token")).first()
+            # GET SESSION
+            self.user_token = request.headers.get("User-Token")
             if request.method == 'POST':
                 if request.data == "" or request.content_length == 0 or type(request.data) is not str:
-                    self.errors = ("bad_request", Status.HTTP.NO_CONTENT)
+                    self.errors = (ExceptionMsg.message_to_not_json(), Status.HTTP.BAD_REQUEST)
                 elif request.mimetype != 'application/json':
-                    self.errors = ("not_json", Status.HTTP.UNPROCESSABLE_ENTITY)
+                    self.errors = (ExceptionMsg.message_to_not_json(), Status.HTTP.BAD_REQUEST)
                 elif type(request.json) is str:
-                    self.errors = ("bad_request", Status.HTTP.NO_CONTENT)
+                    self.errors = (ExceptionMsg.message_to_not_content(), Status.HTTP.NO_CONTENT)
                 else:
                     self.json_data = request.json
                 self.schema = Schema()
@@ -206,55 +282,84 @@ class ControllerList(Resource):
     def post(self):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'POST' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
+
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # session = session_schema.dump(session)
 
         # VALIDATE JSON DATA
         if not self.json_data:
-            return ExceptionMsg.set_message_error(100001, "Se espera un json", {}), Status.HTTP.NOT_FOUND
+            return ExceptionMsg.message_to_json_invalid(), Status.HTTP.BAD_REQUEST
 
-        # SERIALIZER JSON TO LIBRARY MODEL
-        library, errors = self.schema.load(self.json_data)
+        # SERIALIZER JSON TO OBJECT MODEL
+        schema, errors = self.schema.load(self.json_data)
         if len(errors) > 0:
-            return ExceptionMsg.set_message_error(101001, errors, {}), Status.HTTP.BAD_REQUEST
+            return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
+
+        # VALIDATE TOKEN SESSION WITH  USER ID
+        # if 'user_id' in self.json_data:
+        #    if not schema.user_id == session.data['user']['id']:
+        #        return ExceptionMsg.set_message_error(101001, "Token is invalid", {}), Status.HTTP.METHOD_NOT_ALLOWED
 
         # INSERT TO DATA BASE
         try:
-            db.session.add(library)
+            db.session.add(schema)
             db.session.commit()
-            result = self.schema.dump(library)
+            result = self.schema.dump(schema)
             return result.data, Status.HTTP.CREATED
         except IntegrityError as e:
             print "IntegrityError"
-            return ExceptionMsg.set_message_error(100001, e.message, {}), Status.HTTP.CONFLICT
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except OperationalError as e:
             print "OperationalError:"
-            return ExceptionMsg.set_message_error(100002, e.message, {}), Status.HTTP.CONFLICT
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except SQLAlchemyError as e:
             print "SQLAlchemyError:"
             print e.message
-            return ExceptionMsg.set_message_error(100003, e.message, {}), Status.HTTP.CONFLICT
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
     def get(self):
         # VALIDATE ERRORS
         if self.errors is not None:
-            return ExceptionMsg.get_message_error(self.errors[0]), self.errors[1]
+            return self.errors[0], self.errors[1]
 
         # CHECK SESSION
+        # session = None
         if 'GET' in self.token_required:
-            if self.session is None or not self.session.active or self.session.expiration_time < datetime.datetime.now():
-                return ExceptionMsg.set_message_error(100001, "Session is invalid", {}), Status.HTTP.UNAUTHORIZED
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
+
+        # SESSION DUMP
+        # session_schema = SessionSchema()
+        # result = session_schema.dump(session)
 
         # SELECT IN  DATA BASE
         try:
-            library = self.model.query.all()
-            result = self.schema.dump(library)
+            data = self.model.query.all()
+            if data is None:
+                return ExceptionMsg.message_to_object_not_found(), Status.HTTP.NOT_FOUND
+            result = self.schema.dump(data)
             return result.data, Status.HTTP.OK
+        except IntegrityError as e:
+            print "IntegrityError"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except OperationalError as e:
+            print "OperationalError:"
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
+        except SQLAlchemyError as e:
+            print "SQLAlchemyError:"
+            print e.message
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.CONFLICT
         except Exception as e:
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR

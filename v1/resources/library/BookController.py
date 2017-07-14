@@ -15,9 +15,9 @@ from v1.models.library.Book import Book
 
 class BookController(Controller):
     def __init__(self):
-        super(BookController, self).__init__(BookSchema, Book)
+        super(BookController, self).__init__(BookSchema, Book, ["GET", "PUT", "DELETE", "PATCH"])
 
 
 class BookListController(ControllerList):
     def __init__(self):
-        super(BookListController, self).__init__(BookSchema, Book)
+        super(BookListController, self).__init__(BookSchema, Book, ["GET", "POST"])

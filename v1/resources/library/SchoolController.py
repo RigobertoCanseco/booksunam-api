@@ -15,9 +15,9 @@ from v1.models.library.School import School
 
 class SchoolController(Controller):
     def __init__(self):
-        super(SchoolController, self).__init__(SchoolSchema, School)
+        super(SchoolController, self).__init__(SchoolSchema, School,  ["GET", "PUT", "DELETE", "PATCH"])
 
 
 class SchoolListController(ControllerList):
     def __init__(self):
-        super(SchoolListController, self).__init__(SchoolSchema, School)
+        super(SchoolListController, self).__init__(SchoolSchema, School, ["GET", "POST"])

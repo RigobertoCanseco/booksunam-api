@@ -15,9 +15,9 @@ from v1.models.admin.Device import Device
 
 class DeviceController(Controller):
     def __init__(self):
-        super(DeviceController, self).__init__(DeviceSchema, Device)
+        super(DeviceController, self).__init__(DeviceSchema, Device,  ["GET", "PUT", "DELETE", "PATCH"])
 
 
 class DeviceListController(ControllerList):
     def __init__(self):
-        super(DeviceListController, self).__init__(DeviceSchema, Device)
+        super(DeviceListController, self).__init__(DeviceSchema, Device,  ["GET", "POST"])

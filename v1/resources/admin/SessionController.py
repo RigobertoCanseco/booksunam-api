@@ -13,9 +13,9 @@ from v1.models.admin.Session import Session
 
 class SessionController(Controller):
     def __init__(self):
-        super(SessionController, self).__init__(SessionSchema, Session)
+        super(SessionController, self).__init__(SessionSchema, Session,["GET", "PUT", "DELETE", "PATCH"])
 
 
 class SessionListController(ControllerList):
     def __init__(self):
-        super(SessionListController, self).__init__(SessionSchema, Session)
+        super(SessionListController, self).__init__(SessionSchema, Session, ["GET", "POST"])

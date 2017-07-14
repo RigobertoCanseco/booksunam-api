@@ -71,6 +71,7 @@ class SessionSchema(Schema):
     user_id = fields.Str()
     client_id = fields.Str()
     token = fields.Str()
+
     active = fields.Bool()
     status = fields.Int()
     type = fields.Int()

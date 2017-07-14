@@ -19,9 +19,9 @@ http://oreon.dgbiblio.unam.mx/F/
 
 class LibraryController(Controller):
     def __init__(self):
-        super(LibraryController, self).__init__(LibrarySchema, Library)
+        super(LibraryController, self).__init__(LibrarySchema, Library, ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
 
 
 class LibraryListController(ControllerList):
     def __init__(self):
-        super(LibraryListController, self).__init__(LibrarySchema, Library)
+        super(LibraryListController, self).__init__(LibrarySchema, Library, ['POST'])

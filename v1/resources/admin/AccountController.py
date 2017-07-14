@@ -15,9 +15,9 @@ from v1.models.admin.Account import Account
 
 class AccountController(Controller):
     def __init__(self):
-        super(AccountController, self).__init__(AccountSchema, Account)
+        super(AccountController, self).__init__(AccountSchema, Account, ["GET", "POST", "PUT", "DELETE"])
 
 
 class AccountListController(ControllerList):
     def __init__(self):
-        super(AccountListController, self).__init__(AccountSchema, Account)
+        super(AccountListController, self).__init__(AccountSchema, Account, ["GET", "POST", "PUT", "DELETE"])

@@ -24,7 +24,12 @@ from v1.resources.library.NewBookController import NewBookListController
     
     URI: api/version/
     
-
+    USERS:      /users                  [POST, GET, PUT, DELETE, PATCH]
+    LOGIN:      /users/login            [POST]
+    LOGOUT:     /users/logout           [POST]
+    ACCOUNT:    /accounts               [POST, GET, PUT, DELETE, PATCH]
+    LIBRARIES:  /libraries              [POST, GET, PUT, DELETE, PATCH]
+           
 """
 
 
@@ -34,15 +39,13 @@ api.add_resource(UserListController, api_version + "/users")
 api.add_resource(LoginController, api_version + "/users/login")
 api.add_resource(LogoutController, api_version + "/users/logout")
 
-
 # ACCESS POINT 'account':
 api.add_resource(AccountController, api_version + "/accounts/<string:id>")
 api.add_resource(AccountListController, api_version + "/accounts")
 
-
 # ACCESS POINT 'library':
-api.add_resource(LibraryController, api_version + "/library/<string:id>")
-api.add_resource(LibraryListController, api_version + "/library")
+api.add_resource(LibraryController, api_version + "/libraries/<string:id>")
+api.add_resource(LibraryListController, api_version + "/libraries")
 
 # ACCESS POINT 'clients':
 api.add_resource(ClientController, api_version + "/clients/<string:id>")
@@ -51,7 +54,6 @@ api.add_resource(ClientListController, api_version + "/clients")
 # ACCESS POINT 'schools':
 api.add_resource(SchoolController, api_version + "/schools/<string:id>")
 api.add_resource(SchoolListController, api_version + "/schools")
-
 
 
 # ACCESS POINT 'devices':

@@ -79,16 +79,15 @@ class LibraryParameter(db.Model):
     Data Model: Table 'LIB_LIBRARY_PARAMETERS'
     """
     __tablename__ = 'LIB_LIBRARY_PARAMETERS'
-    id = db.Column(db.String(32), db.ForeignKey("LIB_LIBRARY.ID"), primary_key=True, name="ID")
+    library_id = db.Column(db.String(32), db.ForeignKey("LIB_LIBRARY.ID"), primary_key=True, name= "LIBRARY_ID")
     field = db.Column(db.String(64), primary_key=True, nullable=False, name="FIELD")
-    parameter = db.Column(db.String(64), nullable=False, name="PARAMETER")
-    value = db.Column(db.String(1024), nullable=False, name="VALUE")
+    value = db.Column(db.BLOB, nullable=False, name="VALUE")
 
     # Relationships
     # "library = db.relationship("Library", back_populates="parameters")
     # parameters = db.relationship("Library", backref=db.backref('library', lazy='dynamic'))
 
-    def __init__(self, field, parameter, value, id=None, library=None):
+    def __init__(self, field, parameter, value, library_id=None, library=None):
         """
 
         :param id: 
@@ -96,7 +95,7 @@ class LibraryParameter(db.Model):
         :param parameter: 
         :param value: 
         """
-        self.id = id
+        self.library_id = library_id
         self.field = field
         self.parameter = parameter
         self.value = value
@@ -104,7 +103,7 @@ class LibraryParameter(db.Model):
 
     def __repr__(self):
         return "<LibraryParameter id='%s', field='%s', parameter='%s', value='%s', library='%s'>" % \
-               (self.id, self.field, self.parameter, self.value, self.library)
+               (self.library_id, self.field, self.parameter, self.value, self.library)
 
 
 # OBJECT MODEL 'LIBRARY_PARAMETERS'

@@ -2,6 +2,7 @@ from v1 import db
 from v1.common.KeysDB import KeysDB
 from marshmallow import Schema, fields, post_load, ValidationError, validate, pre_load, pre_dump, post_dump
 from v1.models.library.School import SchoolSchema
+from Account import AccountSchema
 
 
 GENRE = ["MALE", "FEMALE", "UNKNOWN", "OTHER"]
@@ -31,9 +32,10 @@ class User(db.Model):
 
     # Relationships
     school = db.relationship("School", backref=db.backref("users", lazy="dynamic"))
+    accounts = db.relationship("Account")
 
     def __init__(self, school_id, name, lastname, genre, mail, password, account_number=None, phone=None,
-                 active=True, status=1, type=1, creation_time=None, update_time=None):
+                 active=True, status=1, type=1, creation_time=None, update_time=None, accounts=None):
         """
         
         :param school_id: 
@@ -49,6 +51,7 @@ class User(db.Model):
         :param type: 
         :param creation_time: 
         :param update_time: 
+        :param accounts
         """
         self.id = KeysDB.create_id(mail)
         self.school_id = school_id
@@ -64,14 +67,15 @@ class User(db.Model):
         self.type = type
         self.creation_time = creation_time
         self.update_time = update_time
+        self.accounts = accounts
 
     def __repr__(self):
         return "<USER id='%s', school_id='%s', name='%s', lastname='%s',genre='%s', mail='%s', password='%s'," \
                " account_number='%s',  phone='%s', active='%s', status='%s', type='%s', creation_time='%s', " \
-               "update_time='%s'>" \
+               "update_time='%s', accounts='%s'>" \
                % (self.id, self.school_id,  self.name, self.lastname,  self.genre, self.mail, self.password,
                   self.account_number, self.phone, self.active, self.status, self.type, self.creation_time,
-                  self.update_time)
+                  self.update_time, self.accounts)
 
 
 def validate_id(v):
@@ -150,6 +154,8 @@ class UserSchema(Schema):
     update_time = fields.DateTime(required = False)
     school = fields.Nested(SchoolSchema, required = False)
 
+    accounts = fields.List(fields.Nested(AccountSchema), required = False)
+
     @post_load
     def make(self, data):
         return User(**data)
@@ -157,26 +163,26 @@ class UserSchema(Schema):
     @pre_load
     def preload(self, data):
         if 'school_id' not in data:
-            raise ValidationError("The object user must have a 'school_id' key.")
+            raise ValidationError("The object 'User' must have a 'school_id' key.")
 
         if 'name' not in data:
-            raise ValidationError("The object user must have a 'name' key.")
+            raise ValidationError("The object 'User' must have a 'name' key.")
         else:
             data['name'] = data['name'].upper()
 
         if 'lastname' not in data:
-            raise ValidationError("The object user must have a 'lastname' key.")
+            raise ValidationError("The object 'User' must have a 'lastname' key.")
         else:
             data['lastname'] = data['lastname'].upper()
 
         if 'mail' not in data:
-            raise ValidationError("The object user must have a 'mail' key.")
+            raise ValidationError("The object 'User' must have a 'mail' key.")
 
         if 'password' not in data:
-            raise ValidationError("The object user must have a 'password' key.")
+            raise ValidationError("The object 'User' must have a 'password' key.")
 
         if 'genre' not in data:
-            raise ValidationError("The object user must have a 'genre' key.")
+            raise ValidationError("The object 'User' must have a 'genre' key.")
         else:
             data['genre'] = data['genre'].upper()
 

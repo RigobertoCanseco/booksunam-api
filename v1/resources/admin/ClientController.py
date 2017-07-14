@@ -15,9 +15,9 @@ from v1.models.admin.Client import Client
 
 class ClientController(Controller):
     def __init__(self):
-        super(ClientController, self).__init__(ClientSchema, Client)
+        super(ClientController, self).__init__(ClientSchema, Client, ["GET", "PUT", "DELETE", "PATCH"])
 
 
 class ClientListController(ControllerList):
     def __init__(self):
-        super(ClientListController, self).__init__(ClientSchema, Client)
+        super(ClientListController, self).__init__(ClientSchema, Client, ["POST", "GET"])

@@ -1,1 +1,1 @@
-{   "school_id": "2398aa6a722d171da04ca3806e6b2d4d",   "name": "Rigoberto",   "lastname": "Canseco",   "mail": "cansecorigobeto@gmail.com",   "password": "12345678",   "account_number": "413113054",   "genre": "male" , "status":"2"}
+{   "school_id": "2398aa6a722d171da04ca3806e6b2d4d",   "name": "Rigoberto",   "lastname": "Canseco",   "mail": "cansecorigobeto@gmail.com",   "password": "12345678",   "account_number": "413113054",   "genre": "male" , "status":"2", "accounts":[]}

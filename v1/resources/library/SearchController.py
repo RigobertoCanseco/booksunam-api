@@ -25,35 +25,32 @@ class SearchListController(ControllerList):
         request = reqparse.request
         if request.method == 'GET':
             # GET ARGUMENTS
-            super(SearchListController, self).__init__(QuerySearchSchema, Library)
+            super(SearchListController, self).__init__(QuerySearchSchema, Library, [])
         else:
             self.args = None
-            self.errors = ("method_invalid", Status.HTTP.METHOD_NOT_ALLOWED)
+            self.errors = (ExceptionMsg.message_to_method_not_allowed(), Status.HTTP.METHOD_NOT_ALLOWED)
 
     def get(self):
         # str_request = urllib2.quote(str_request.encode('utf-8'))
         # str_type_search = request.form['type_search']
         args = reqparse.request.args
         if args is None:
-            return ExceptionMsg.set_message_error(101001, "Parametros faltantes", {}), Status.HTTP.BAD_REQUEST
+            return ExceptionMsg.message_to_bad_request("Not found arguments"), Status.HTTP.BAD_REQUEST
         if len(args) is 0:
-            return ExceptionMsg.set_message_error(101001, "Parametros faltantes", {}), Status.HTTP.BAD_REQUEST
+            return ExceptionMsg.message_to_bad_request("Not found arguments"), Status.HTTP.BAD_REQUEST
 
         # SERIALIZER
         library_schema = LibrarySchema()
         search_schema = QuerySearchSchema()
-        self.args, errors = search_schema.load(args)
+        self.args, errors = search_schema.load(args.to_dict())
         if len(errors) > 0:
-            return ExceptionMsg.set_message_error(101001, errors, {}), Status.HTTP.BAD_REQUEST
-
-        # REPLACE VALUES
-        search_schema.replace_values(self.args)
+            return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
 
         try:
             # SELECT IN DATA BASE
             library_om = library_schema.dump(self.model.query.get(self.args['library']))
             if len(library_om.data) == 0:
-                return ExceptionMsg.set_message_error(101001, "Biblioteca no encontrada", {}), Status.HTTP.BAD_REQUEST
+                return ExceptionMsg.message_to_bad_request("Library not found"), Status.HTTP.BAD_REQUEST
 
             # GET SESSION
             session = self.args["session"]
@@ -63,8 +60,7 @@ class SearchListController(ControllerList):
 
             # PAGE IS UNAVAILABLE
             if not search_crawler.get_available():
-                return ExceptionMsg.set_message_error(101001, "Servicio no disponible", {}),\
-                       Status.HTTP.SERVICE_UNAVAILABLE
+                return ExceptionMsg.message_to_server_error("Service not unavailable"), Status.HTTP.SERVICE_UNAVAILABLE
 
             # GET SESSION DATA
             # session = search_crawler.get_session()
@@ -80,4 +76,4 @@ class SearchListController(ControllerList):
             return result, Status.HTTP.OK
         except Exception as e:
             print e
-            return ExceptionMsg.set_message_error(101001, e.message, {}), Status.HTTP.INTERNAL_SERVER_ERROR
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
