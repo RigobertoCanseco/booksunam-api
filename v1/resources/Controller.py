@@ -20,6 +20,11 @@ def page_not_found(a):
     return jsonify(ExceptionMsg.message_to_page_not_found()), Status.HTTP.NOT_FOUND
 
 
+@app.errorhandler(500)
+def server_error(a):
+    return jsonify(ExceptionMsg.message_to_server_error("unknown, :) ....")), Status.HTTP.INTERNAL_SERVER_ERROR
+
+
 # METHOD_NOT_ALLOWED
 @app.errorhandler(405)
 def method_not_allowed(a):
@@ -295,15 +300,20 @@ class ControllerList(Resource):
         # session_schema = SessionSchema()
         # session = session_schema.dump(session)
 
-        # VALIDATE JSON DATA
-        if not self.json_data:
-            return ExceptionMsg.message_to_json_invalid(), Status.HTTP.BAD_REQUEST
+        try:
+            # VALIDATE JSON DATA
+            if not self.json_data:
+                return ExceptionMsg.message_to_json_invalid(), Status.HTTP.BAD_REQUEST
+        except Exception as e:
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
         # SERIALIZER JSON TO OBJECT MODEL
-        schema, errors = self.schema.load(self.json_data)
-        if len(errors) > 0:
-            return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
-
+        try:
+            schema, errors = self.schema.load(self.json_data)
+            if len(errors) > 0:
+                return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
+        except Exception as e:
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
         # VALIDATE TOKEN SESSION WITH  USER ID
         # if 'user_id' in self.json_data:
         #    if not schema.user_id == session.data['user']['id']:

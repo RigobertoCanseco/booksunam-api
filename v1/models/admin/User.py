@@ -35,7 +35,7 @@ class User(db.Model):
     accounts = db.relationship("Account")
 
     def __init__(self, school_id, name, lastname, genre, mail, password, account_number=None, phone=None,
-                 active=True, status=1, type=1, creation_time=None, update_time=None, accounts=None):
+                 active=True, status=1, type=1, creation_time=None, update_time=None, accounts=[]):
         """
         
         :param school_id: 

@@ -33,10 +33,13 @@ class UserListController(ControllerList):
         if not self.json_data:
             return ExceptionMsg.message_to_json_invalid(), Status.HTTP.BAD_REQUEST
 
-        # SERIALIZER JSON TO LIBRARY MODEL
-        library, errors = self.schema.load(self.json_data)
-        if len(errors) > 0:
-            return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
+        try:
+            # SERIALIZER JSON TO LIBRARY MODEL
+            library, errors = self.schema.load(self.json_data)
+            if len(errors) > 0:
+                return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
+        except Exception as e:
+            return ExceptionMsg.message_to_server_error(e.message), Status.HTTP.INTERNAL_SERVER_ERROR
 
         # INSERT TO DATA BASE
         try:
