@@ -13,7 +13,7 @@ class Role(db.Model):
 
     def __init__(self, role):
         """
-        :param role: 
+        :param role:
         """
         self.id = KeysDB.create_id(role)
         self.role = role

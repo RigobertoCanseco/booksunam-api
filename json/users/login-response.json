@@ -1,9 +1,9 @@
 {
   "status": 0,
-  "update_time": "2017-07-14T01:47:37+00:00",
-  "user_id": "607cc1b4290064c8296f806fd8b8bcf6",
-  "creation_time": "2017-07-13T02:10:29+00:00",
-  "token": "52e78106-6860-11e7-9da2-0071cc2af855",
+  "update_time": "2017-07-18T01:39:04+00:00",
+  "user_id": "285f07693099f6808cc4d9058d307ae9",
+  "creation_time": "2017-07-18T01:39:04+00:00",
+  "token": "cac50470-6b83-11e7-a65f-0071cc2af855",
   "client": {
     "status": 0,
     "update_time": null,
@@ -16,15 +16,21 @@
   },
   "user": {
     "status": 1,
-    "update_time": "2017-07-13T01:28:45+00:00",
+    "update_time": "2017-07-18T01:33:52+00:00",
     "name": "RIGOBERTO",
+    "roles": [
+      {
+        "user_id": "285f07693099f6808cc4d9058d307ae9",
+        "role_id": "2e40ad879e955201df4dedbf8d479a12"
+      }
+    ],
     "lastname": "CANSECO",
-    "creation_time": "2017-07-13T01:28:45+00:00",
+    "creation_time": "2017-07-18T01:33:52+00:00",
     "school": {
       "website": null,
       "status": 1,
       "update_time": "2017-06-11T00:38:26+00:00",
-      "name": "FES Arag\u00f3n",
+      "name": "FES Aragón",
       "creation_time": "2017-06-11T00:38:26+00:00",
       "telephone": null,
       "longitude": null,
@@ -35,46 +41,16 @@
       "type": 1,
       "id": "2398aa6a722d171da04ca3806e6b2d4d"
     },
-    "id": "607cc1b4290064c8296f806fd8b8bcf6",
+    "school_id": "2398aa6a722d171da04ca3806e6b2d4d",
     "phone": null,
-    "accounts": [
-      {
-        "status": 0,
-        "library_id": "420e721f804699a43f1ba8d9f264369b",
-        "account": "413113054",
-        "user_id": "607cc1b4290064c8296f806fd8b8bcf6",
-        "creation_time": "2017-07-13T23:08:38+00:00",
-        "update_time": "2017-07-13T23:08:38+00:00",
-        "library": {
-          "website": "http://informatica.dgbiblio.unam.mx:8991/",
-          "division": "Direcci\u00f3n General de Bibliotecas",
-          "update_time": "2017-06-10T14:39:45+00:00",
-          "name": "Biblioteca Central",
-          "parameters": [],
-          "class_name": "Central",
-          "creation_time": "2017-06-10T14:39:45+00:00",
-          "telephone": "56221658",
-          "entity": "Biblioteca Central",
-          "status": 0,
-          "key": "BC",
-          "address": "Edif. de Biblioteca Central, Circuito Escolar, Ciudad Universitaria, delegaci\u00f3n Coyoac\u00e1n C.P. 04510 M\u00e9xico D.F.",
-          "active": true,
-          "type": 0,
-          "id": "420e721f804699a43f1ba8d9f264369b"
-        },
-        "active": true,
-        "password": "6219b932485fb6275fcf5f657b9148dc67b9e1137bb7b6e9d9d2461dc4b50863",
-        "type": 0,
-        "id": "08c932d16e52a1b899b6408b8da85733"
-      }
-    ],
+    "accounts": [],
     "account_number": "413113054",
     "active": true,
-    "mail": "cansecorigobeto@gmail.com",
+    "mail": "cansecorigoberto@gmail.com",
     "genre": "MALE",
     "password": "ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f",
     "type": 1,
-    "school_id": "2398aa6a722d171da04ca3806e6b2d4d"
+    "id": "285f07693099f6808cc4d9058d307ae9"
   },
   "client_id": "33ca8c20fc3207a5e31f85b11ffdd886",
   "active": true,

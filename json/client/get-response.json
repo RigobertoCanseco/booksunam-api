@@ -1,0 +1,22 @@
+[
+  {
+    "status": 0,
+    "update_time": null,
+    "name": "CLIENT_ANDROID",
+    "creation_time": "2017-07-03T18:26:12+00:00",
+    "token": "40a60830-6047-11e7-8d1d-0071cc2af855",
+    "active": true,
+    "type": 0,
+    "id": "33ca8c20fc3207a5e31f85b11ffdd886"
+  },
+  {
+    "status": 0,
+    "update_time": "2017-06-10T22:01:49+00:00",
+    "name": "CLIENT_WEB",
+    "creation_time": "2017-06-10T22:01:49+00:00",
+    "token": "4fd411b4-4e52-11e7-9ca5-0071cc2af855",
+    "active": true,
+    "type": 0,
+    "id": "f5ee9cf27aa09fea3055f6ca8214fecc"
+  }
+]

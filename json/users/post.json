@@ -1,1 +1,14 @@
-{   "school_id": "2398aa6a722d171da04ca3806e6b2d4d",   "name": "Rigoberto",   "lastname": "Canseco",   "mail": "cansecorigobeto@gmail.com",   "password": "12345678",   "account_number": "413113054",   "genre": "male" }
+{
+  "school_id": "2398aa6a722d171da04ca3806e6b2d4d",
+  "name": "Rigoberto",
+  "lastname": "Canseco",
+  "mail": "cansecorigoberto@gmail.com",
+  "password": "12345678",
+  "account_number": "413113054",
+  "genre": "male",
+  "roles":[
+    {
+      "role_id":"2e40ad879e955201df4dedbf8d479a12"
+    }
+  ]
+}

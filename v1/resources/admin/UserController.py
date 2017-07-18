@@ -7,6 +7,7 @@ from v1.resources.Controller import Controller, ControllerList, IntegrityError, 
 from v1.models.admin.User import UserSchema
 # DATA MODEL
 from v1.models.admin.User import User
+from v1.models.security.Role import RoleSchema, Role
 # EXCEPTIONS
 from v1.exceptions.ExceptionMsg import ExceptionMsg
 # STATUS CODES
@@ -34,8 +35,16 @@ class UserListController(ControllerList):
             return ExceptionMsg.message_to_json_invalid(), Status.HTTP.BAD_REQUEST
 
         try:
-            # SERIALIZER JSON TO LIBRARY MODEL
-            library, errors = self.schema.load(self.json_data)
+
+            user, errors = self.schema.load(self.json_data)
+
+            # # SERIALIZER JSON TO LIBRARY MODEL
+            # if self.client.id == '33ca8c20fc3207a5e31f85b11ffdd886':
+            #     role_schema = RoleSchema()
+            #     role, errors = role_schema.load(dict(id='2e40ad879e955201df4dedbf8d479a12', role='USER'))
+            #     #self.json_data['roles'] = [dict(id='2e40ad879e955201df4dedbf8d479a12', role='USER')]
+            #     user.roles.append(role)
+
             if len(errors) > 0:
                 return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
         except Exception as e:
@@ -43,9 +52,9 @@ class UserListController(ControllerList):
 
         # INSERT TO DATA BASE
         try:
-            db.session.add(library)
+            db.session.add(user)
             db.session.commit()
-            result = self.schema.dump(library)
+            result = self.schema.dump(user)
             # SEND MAIL
 
             return result.data, Status.HTTP.CREATED
