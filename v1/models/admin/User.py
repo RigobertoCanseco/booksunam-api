@@ -1,7 +1,9 @@
 from v1 import db
+import datetime
 from v1.common.KeysDB import KeysDB
 from marshmallow import Schema, fields, post_load, ValidationError, validate, pre_load, pre_dump, post_dump
 from v1.models.library.School import SchoolSchema
+from v1.models.security.Role import Role, RoleSchema
 from Account import AccountSchema
 
 
@@ -84,9 +86,8 @@ class User(db.Model):
     active = db.Column(db.Boolean, nullable=False, default=True, name="ACTIVE")
     status = db.Column(db.Integer, nullable=False, default=0, name="STATUS")
     type = db.Column(db.Integer, nullable=False, default=0, name="TYPE")
-    creation_time = db.Column(db.DateTime, default=db.func.current_timestamp(), name="CREATION_TIME")
-    update_time = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp(),
-                            name="UPDATE_TIME")
+    creation_time = db.Column(db.TIMESTAMP, default=datetime.datetime.now(), name="CREATION_TIME")
+    update_time = db.Column(db.TIMESTAMP, onupdate=datetime.datetime.now(), name="UPDATE_TIME")
 
     # Relationships
     school = db.relationship("School", backref=db.backref("users", lazy="dynamic"))
@@ -248,4 +249,3 @@ class UserSchema(Schema):
     @post_dump
     def post_dump(self, data):
         pass
-
