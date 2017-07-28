@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+import datetime
 from flask_restful import reqparse
 # CONTROLLER
 from v1.resources.Controller import ControllerList
 # OBJECT MODEL
 from v1.models.library.Search import QuerySearchSchema
 from v1.models.library.Library import LibrarySchema
+from v1.models.admin.Session import Session
 # DATA MODEL
 from v1.models.library.Library import Library
 # EXCEPTIONS
@@ -22,15 +24,21 @@ from v1.crawlers.search.SearchCrawler import SearchCrawler
 
 class SearchListController(ControllerList):
     def __init__(self):
-        request = reqparse.request
-        if request.method == 'GET':
-            # GET ARGUMENTS
-            super(SearchListController, self).__init__(QuerySearchSchema, Library, [])
-        else:
-            self.args = None
-            self.errors = (ExceptionMsg.message_to_method_not_allowed(), Status.HTTP.METHOD_NOT_ALLOWED)
+        super(SearchListController, self).__init__(QuerySearchSchema, Library, ['GET'])
 
     def get(self):
+        # VALIDATE ERRORS
+        if self.errors is not None:
+            return self.errors[0], self.errors[1]
+
+        # CHECK SESSION
+        # session = None
+        if 'GET' in self.token_required:
+            session = Session.query.filter_by(token = self.user_token).first()
+            if session is None or not session.active or session.expiration_time < datetime.datetime.now():
+                return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
+
+
         # str_request = urllib2.quote(str_request.encode('utf-8'))
         # str_type_search = request.form['type_search']
         args = reqparse.request.args
@@ -53,7 +61,10 @@ class SearchListController(ControllerList):
                 return ExceptionMsg.message_to_bad_request("Library not found"), Status.HTTP.BAD_REQUEST
 
             # GET SESSION
-            session = self.args["session"]
+            if "session" in self.args:
+                session = self.args["session"]
+            else:
+                session = None
             # KETCKMTGN3QL9RFI3BM6RC1M3XLKQD74I7S9YT1TG5EYRXK8BQ-17280
             # CREATE NEW SEARCH CRAWLER
             search_crawler = SearchCrawler(library_om.data["class_name"], library_om.data["website"], session=session)
@@ -63,8 +74,8 @@ class SearchListController(ControllerList):
                 return ExceptionMsg.message_to_server_error("Service not unavailable"), Status.HTTP.SERVICE_UNAVAILABLE
 
             # GET SESSION DATA
-            # session = search_crawler.get_session()
-            # print "session response" + session
+            session = search_crawler.get_session()
+            print "session response" + session
 
             # GET PAGINATION
             if "session" in self.args and "start" in self.args:

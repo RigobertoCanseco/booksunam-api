@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import urllib2
 from bs4 import BeautifulSoup
 from flask import request
 from v1.common.CleanHTML import CleanHTML
@@ -104,14 +103,14 @@ class BookPage(object):
             jump = CleanHTML.get_jump(next_page['href'])
             link_next = str(request.url_root) + "api/v1" + '/search?' \
                         + 'library=' + self.args["library"] \
-                        + '&collection=' + self.args["collection"] \
+                        + '&collection=' + self.args["collection"].lower() \
                         + '&type=' + self.args["type"] \
                         + '&session=' + self.session + '&start=' + jump
         if prev_page is not None:
             jump = CleanHTML.get_jump(prev_page['href'])
             link_prev = str(request.url_root) + "api/v1" + '/search?' \
                         + 'library=' + self.args["library"] \
-                        + '&collection=' + self.args["collection"] \
+                        + '&collection=' + self.args["collection"].lower() \
                         + '&type=' + self.args["type"] \
                         + '&session=' + self.session + '&start=' + jump
 

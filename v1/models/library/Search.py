@@ -1,5 +1,6 @@
 from marshmallow import Schema, fields, post_load, ValidationError, validate, pre_load, pre_dump, post_dump
 
+COLLECTION = dict(book="Book", thesis="Thesis", magazine="Magazine" )
 
 TYPES = dict(basic="basic", multifield="multi-field", advanced="advanced")
 
@@ -9,6 +10,11 @@ FIELDS = dict(all="WRD", title="WTT", author="WAT", theme="WSS", editorial="WPU"
 SPLIT = dict(yes="N", no="Y")
 
 LANGUAGE = dict(all="", spanish="SPA", english="ENG", french="FRE", german="GER")
+
+
+def validate_collection(v):
+    if v not in COLLECTION:
+        raise ValidationError("Collection not valid")
 
 
 def validate_type(v):
@@ -121,17 +127,17 @@ class QuerySearchSchema(Schema):
     # NAME COLLECTION
     collection = fields.Str(required=True)
     # TYPE SEARCH
-    type = fields.Str(validate=validate_type)
+    type = fields.Str()
     # BASIC
     request = fields.Str(required=False, validate=validate_request)
-    field = fields.Str(default="all", validate=validate_field)
-    split = fields.Str(default="yes", validate=validate_split)
-    language = fields.Str(default="all", validate=validate_language)
+    field = fields.Str()
+    split = fields.Str()
+    language = fields.Str()
     from_year = fields.Str(default="", validate=validate_year)
     to_year = fields.Str(default="", validate=validate_year)
 
     # AFTER OF FIND RESULTS
-    session = fields.Str(required = False, default = "")
+    session = fields.Str(required = False)
     start = fields.Int(required = False)
 
     @post_load
@@ -140,7 +146,7 @@ class QuerySearchSchema(Schema):
 
     @pre_load
     def preload(self, data):
-        if not "library" in data:
+        if "library" not in data:
             raise ValidationError("Search must have a 'library' param.")
 
         if "request" in data:
@@ -148,7 +154,11 @@ class QuerySearchSchema(Schema):
         else:
             raise ValidationError("Search must have a 'request' param.")
 
-        if not "collection" in data:
+        if "collection" not in data:
+            raise ValidationError("Search must have a 'collection' param.")
+        elif data["collection"] in COLLECTION:
+            data["collection"] = COLLECTION[data["collection"]]
+        else:
             raise ValidationError("Search must have a 'collection' param.")
 
         if "type" in data:
@@ -159,20 +169,20 @@ class QuerySearchSchema(Schema):
         if "field" in data:
             data["field"] = FIELDS[data["field"]]
         else:
-            data["field"] = "all"
+            data["field"] = "WRD"
 
         if "split" in data:
             data["split"] = SPLIT[data["split"]]
         else:
-            data["split"] = "yes"
+            data["split"] = "N"
 
         if "language" in data:
             data["language"] = LANGUAGE[data["language"]]
         else:
-            data["language"] = "all"
+            data["language"] = ""
 
-        if "session" not in data:
-            data["session"] = ""
+        if "session" in data and data["session"] == "":
+            del data["session"]
 
         print data
 

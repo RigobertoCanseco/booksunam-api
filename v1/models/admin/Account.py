@@ -3,7 +3,7 @@ from v1 import db
 from v1.common.KeysDB import KeysDB
 from marshmallow import Schema, fields, post_load, ValidationError, pre_load, pre_dump, post_dump
 
-
+#N80 AAS,
 # DATA MODEL 'ACCOUNT'
 class Account(db.Model):
     """
