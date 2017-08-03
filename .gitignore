@@ -6,3 +6,4 @@
 .idea/modules.xml
 .idea/workspace.xml
 /config/sendgrid.env
+/v1/config/localhost.cfg
