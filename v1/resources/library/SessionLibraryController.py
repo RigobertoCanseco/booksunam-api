@@ -4,7 +4,7 @@ import datetime
 from flask_restful import reqparse
 
 # CRAWLER
-from v1.crawlers.LibraryCrawler import LibraryCrawler
+from crawlers.LibraryCrawler import LibraryCrawler
 # STATUS CODES
 from v1.common import Status
 # EXCEPTIONS
@@ -14,7 +14,7 @@ from v1.models.admin.Session import Session
 from v1.models.library.Library import Library
 from v1.models.library.Library import LibrarySchema
 # OBJECT MODEL
-from v1.models.library.Search import QuerySearchSchema
+from v1.models.library.SessionLIbrary import SessionLibrarySchema
 # CONTROLLER
 from v1.resources.Controller import ControllerList
 
@@ -25,25 +25,22 @@ from v1.resources.Controller import ControllerList
 # sys.setdefaultencoding("latin-1")
 
 
-class SearchListController(ControllerList):
+class SessionLibraryController(ControllerList):
     def __init__(self):
-        super(SearchListController, self).__init__(QuerySearchSchema, Library, ['GET'])
+        super(SessionLibraryController, self).__init__(SessionLibrarySchema, Library, ['POST'])
 
-    def get(self):
+    def post(self):
         # VALIDATE ERRORS
         if self.errors is not None:
             return self.errors[0], self.errors[1]
 
         # CHECK SESSION
         # session = None
-        if 'GET' in self.token_required:
+        if 'POST' in self.token_required:
             session = Session.query.filter_by(token = self.user_token).first()
             if session is None or not session.active or session.expiration_time < datetime.datetime.now():
                 return ExceptionMsg.message_to_session_invalid(), Status.HTTP.UNAUTHORIZED
 
-
-        # str_request = urllib2.quote(str_request.encode('utf-8'))
-        # str_type_search = request.form['type_search']
         args = reqparse.request.args
         if args is None:
             return ExceptionMsg.message_to_bad_request("Not found arguments"), Status.HTTP.BAD_REQUEST
@@ -52,7 +49,7 @@ class SearchListController(ControllerList):
 
         # SERIALIZER
         library_schema = LibrarySchema()
-        search_schema = QuerySearchSchema()
+        search_schema = SessionLibrarySchema()
         self.args, errors = search_schema.load(args.to_dict())
         if len(errors) > 0:
             return ExceptionMsg.message_to_bad_request(errors), Status.HTTP.BAD_REQUEST
@@ -77,19 +74,9 @@ class SearchListController(ControllerList):
 
             # GET SESSION DATA
             session = search_crawler.get_session()
-            print "session response" + session
 
-            # GET PAGINATION
-            if "session" in self.args and "start" in self.args:
-                result = search_crawler.pagination(self.args)
-            # GET DETAIL
-            elif "entry" in self.args and "set_number" in self.args:
-                result = search_crawler.view_detail(self.args)
-            # SEARCH
-            elif "number_system" in self.args and "number_system" in self.args:
-                result = search_crawler.info_borrow(self.args)
-            else:
-                result = search_crawler.search(self.args)
+            result = search_crawler.login(self.args)
+
             return result, Status.HTTP.OK
         except Exception as e:
             print e

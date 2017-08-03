@@ -100,7 +100,7 @@ def validate_year(v):
     [FULL_ITEM]
     Parameters:    
     -item
-    func=full-set-set&set_number=000030&set_entry=000001&format=999
+    func=full-set-set&set_number=000030&set_entry=000001&format=002
 
 
     [AVAILABLE]
@@ -136,6 +136,13 @@ class QuerySearchSchema(Schema):
     from_year = fields.Str(default="", validate=validate_year)
     to_year = fields.Str(default="", validate=validate_year)
 
+    # VIEW DETAIL ITEM
+    entry = fields.Str()
+    set_number = fields.Str()
+
+    # INFO BORROW
+    number_system = fields.Str()
+
     # AFTER OF FIND RESULTS
     session = fields.Str(required = False)
     start = fields.Int(required = False)
@@ -149,17 +156,15 @@ class QuerySearchSchema(Schema):
         if "library" not in data:
             raise ValidationError("Search must have a 'library' param.")
 
-        if "request" in data:
-            data["request"] = data['request'].encode('UTF-8')
-        else:
-            raise ValidationError("Search must have a 'request' param.")
-
         if "collection" not in data:
             raise ValidationError("Search must have a 'collection' param.")
         elif data["collection"] in COLLECTION:
             data["collection"] = COLLECTION[data["collection"]]
         else:
             raise ValidationError("Search must have a 'collection' param.")
+
+        if "request" in data:
+            data["request"] = data['request'].encode('UTF-8')
 
         if "type" in data:
             data["type"] = TYPES[data["type"]]
@@ -197,19 +202,25 @@ class QuerySearchSchema(Schema):
 
 class BookSearchSchema(Schema):
     id = fields.Int()
+    library_id = fields.Str()
+    entry = fields.Str()
+    classification = fields.Str()
     author = fields.Str()
     title = fields.Str()
-    classification = fields.Str()
-    link = fields.Str()
-    link_copies = fields.Str()
+    number_system = fields.Str()
     copies = fields.Int()
     on_loan = fields.Int()
+    type = fields.Int()
+    borrow_detail = fields.List(fields.Dict())
+    detail = fields.Dict()
+    link_detail = fields.Str()
+    link_borrow_info = fields.Str()
 
 
 class ResultSearchSchema(Schema):
     session = fields.Str(required = True)
-    set_number = fields.Str(required = True)
-    prev = fields.Str()
-    next = fields.Str()
+    set_number = fields.Str(required = False)
+    prev = fields.Str(allow_none = True)
+    next = fields.Str(allow_none = True)
     total = fields.Int(required = True, default = 0)
     books = fields.List(fields.Nested(BookSearchSchema), required = True)

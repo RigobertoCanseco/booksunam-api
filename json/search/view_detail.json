@@ -1,0 +1,45 @@
+{
+    "classification": "QA76.73O213 K68",
+    "author": "Kowalik, Janusz S., ",
+    "title": "Using opencl : programming massively parallel computers / Janusz Kowalik and Tadeusz Puzniakowski",
+    "number_system": "001573467",
+    "detail": {
+        "336": "  texto rdacontent",
+        "337": "  sin medio rdamedia",
+        "338": "  volumen rdacarrier",
+        "ISBN": [
+            "  1-61499-029-8",
+            "  978-1-61499-029-1"
+        ],
+        "Pie de imprenta": "  Amsterdam : IOS Press, 2012",
+        "Fuente de catalogac": "  YDXCP spa YDXCP BTCTA BWX UNAMX",
+        "Descripción fisica": "  xiv, 295 páginas : ilustraciones + 1 disco óptico láser para computadora",
+        "Imm. Source of Acq": "    compra   2013/10/09   579.72",
+        "Formato": " BK",
+        "Materia general": [
+            "  OpenCL (Lenguaje de programación para computadora)",
+            "  Programación paralela (Computación)"
+        ],
+        "Coautor personal": "  Puzniakowski, Taduesz, autor",
+        "Serie": " ( Advances in parallel computing ; ; v. 21)",
+        "Líder": " 00000nam a2200000zi 4500",
+        "Owner": [
+            "  PUBLIC",
+            "  PUBLIC"
+        ],
+        "Campos Fijos": " 120807s2012    ne            000 0 eng d"
+    },
+    "borrow_detail": [
+        {
+            "Situación del ejemplar": "Préstamo regular",
+            "Clasificación": "QA76.73O213 K68",
+            "No. adquisición": "713385",
+            "Signatura": "",
+            "Fecha de vencimiento": "Disponible",
+            "Colección": "5o. Piso. Sala poniente"
+        }
+    ],
+    "entry": "000001",
+    "type": 1,
+    "id": 1
+}

@@ -188,10 +188,11 @@ class NewBookItemSchema(Schema):
     link_google_books = fields.Str()
     info_google = fields.Str()
     image = fields.Str()
+    detail = fields.List(fields.Str())
 
 
 class ResultSearchSchema(Schema):
     total = fields.Int(required = True, default = 0)
     books = fields.List(fields.Nested(NewBookItemSchema), required = True)
-    next = fields.Str(required = False)
-    prev = fields.Str(required = False)
+    next = fields.Str(allow_none = True)
+    prev = fields.Str(required = False, allow_none = True)

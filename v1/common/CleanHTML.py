@@ -8,6 +8,28 @@ class CleanHTML:
         pass
 
     @staticmethod
+    def get_google_book_id(text):
+        reg = re.compile(r"(id=)(.*?)(\\)")
+        r = reg.search(text)
+
+        if r is not None:
+            r = r.group()
+            return r.replace("id=", "").replace("\\", "")
+        else:
+            return None
+
+    @staticmethod
+    def get_title(text):
+        reg = re.compile(r"(title = ')(.*?)(\/)")
+        r = reg.search(text)
+
+        if r is not None:
+            r = r.group()
+            return r.replace("title = '", "").replace("/", "")
+        else:
+            return None
+
+    @staticmethod
     def clean_session(text):
         """
         RETURN SESSION EXAMPLE 
@@ -194,6 +216,7 @@ class CleanHTML:
             return r.replace("\"info_url\":\"", "").replace("\"", "").replace("\u0026", "&")
         else:
             return None
+
 
     def get_link_preview_url(text):
         reg = re.compile(r'("preview_url":")(.*?)(")')

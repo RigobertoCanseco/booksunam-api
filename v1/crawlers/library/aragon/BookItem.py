@@ -1,84 +1,49 @@
-# -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
-from flask import request
+from urllib import urlencode
+
 from v1.common.CleanHTML import CleanHTML
-from v1.common.HttpConnection import HttpConnection
-from v1.models.library.Search import ResultSearchSchema, BookSearchSchema
+from v1.models.library.Search import BookSearchSchema, ResultSearchSchema
+from v1.crawlers.library.BookPage import BookPage
+from flask import request
 
 
-class BookPage(object):
+class BookItem(BookPage):
     def __init__(self, session, url, args):
-        self.session = session
-        self.url = url
+        self.key = 'l0801'
         self.args = args
-
-    # SEARCH BASIC
-    def search_basic(self):
-        # GET PARAMETERS
-        url = self.url + self.session + '?' + self.get_args_search_basic()
-
-        # GET REQUEST TO LIBRARY
-        result = HttpConnection.get_request(url)
-
-        if result is None:
-            return None
-        else:
-            return self.parse_page(result)
+        super(BookItem, self).__init__(session, url, args)
 
     def get_args_search_basic(self):
-        pass
+        if "from_year" not in self.args:
+            self.args["from_year"] = ""
 
-    def pagination(self):
-        """
-        Pagination 
-        :return: 
-        """
-        url = self.url + self.session + '?' + self.get_args_pagination()
-        result = HttpConnection.get_request(url)
-        if result is not None:
-            return self.parse_page(result)
-        else:
-            return {"message": "Servicio no disponible", "status": "KO"}
+        if "to_year" not in self.args:
+            self.args["to_year"] = ""
+
+        p = urlencode({
+            "func":"find-b",
+            "local_base": self.key,
+            "request": self.args["request"],
+            "find_code": self.args["field"],
+            "adjacent":  self.args["split"],
+            "filter_code1": "WLN",
+            "filter_request_1": self.args["language"],
+            "filter_code_2":  "WYR",
+            "filter_request_2":  self.args["from_year"],
+            "filter_code_3": "WYR",
+            "filter_request_3":  self.args["to_year"]
+        }, 'utf-8')
+        return p
 
     def get_args_pagination(self):
-        pass
+        p = urlencode({
+            "func": "short-jump",
+            "jump": self.args["start"]
+        }, 'utf-8')
+        return p
 
-    def search_multi_field(self, params):
-        pass
+        # <!-- filename: short-2-head  -->
+        # <title>LIBROS - Resultados</title>
 
-    def search_advanced(self, params):
-        pass
-
-    # INDEX ALPHABETIC
-    def index_by_title(self):
-        pass
-
-    def index_by_theme(self):
-        pass
-
-    def index_by_editorial(self):
-        pass
-
-    def parse_page(self, result):
-        soup_result = BeautifulSoup(result, "html.parser", from_encoding = 'utf-8')
-        # GET <TITLE>
-        title = soup_result.head.title.text
-
-        # WHAT PAGE IS?
-        if title == "LIBROS - Registro":
-            return self.parse_page_register(soup_result.body)
-        elif title == "LIBROS - Resultados":
-            return self.parse_page_result(soup_result.body)
-        else:
-            return None
-
-    # <!-- filename: (login)login-session -->
-    # <title>LIBROS - Registro</title>
-    def parse_page_register(self, body):
-        pass
-
-    # <!-- filename: short-2-head  -->
-    # <title>LIBROS - Resultados</title>
     def parse_page_result(self, body):
         book_schema = BookSearchSchema()
         result_schema = ResultSearchSchema()
@@ -105,14 +70,14 @@ class BookPage(object):
                         + 'library=' + self.args["library"] \
                         + '&collection=' + self.args["collection"].lower() \
                         + '&type=' + self.args["type"] \
-                        + '&session=' + self.session + '&start=' + jump
+                        + '&session=' + self.session + '&start=' + jump + "&request=" + self.args["request"]
         if prev_page is not None:
             jump = CleanHTML.get_jump(prev_page['href'])
             link_prev = str(request.url_root) + "api/v1" + '/search?' \
                         + 'library=' + self.args["library"] \
                         + '&collection=' + self.args["collection"].lower() \
                         + '&type=' + self.args["type"] \
-                        + '&session=' + self.session + '&start=' + jump
+                        + '&session=' + self.session + '&start=' + jump + "&request=" + self.args["request"]
 
         # RESULTS
         div = soup_result_body.find(id = "resultSetSearch")
@@ -175,46 +140,11 @@ class BookPage(object):
 
         return result
 
-    def detail(self, session, set_number, set_entry):
-        self.session = session
-        result = HttpConnection.get_request(self.url + '/' + self.session + '?' + 'func=full-set-set&set_number='
-                                            + set_number + "&set_entry=" + set_entry + "&format=999")
-        if result is not None:
-            soup_result = BeautifulSoup(result, from_encoding = 'utf-8')
-            soup_result_body = soup_result.body
-            div = soup_result_body.find(id = "resultSetSearch")
-            table = div.table
-            trs = table.find_all("tr")
-            info = []
+    def parse_page_view_complete(self):
+        book_schema = BookSearchSchema()
+        result_schema = ResultSearchSchema()
 
-            numero_sistema_th = trs[0].find("th")
-            numero_sistema_td = trs[0].find("td")
+        trs = body.find(id = "resultSetSearch").table.find_all("tr")
 
-            clasificacion_th = trs[1].find("th")
-            clasificacion_td = trs[1].find("td")
-
-            clasificacion_dewey_th = trs[2].find("th")
-            clasificacion_dewey_td = trs[2].find("td")
-
-            ISBN_th = trs[3].find("th")
-            ISBN_td = trs[3].find("td")
-
-            autor_th = trs[4].find("th")
-            autor_td = trs[4].find("td")
-
-            titulo_th = trs[5].find("th")
-            titulo_td = trs[5].find("td")
-
-            datos_de_publicacion_th = trs[6].find("th")
-            datos_de_publicacion_td = trs[6].find("td")
-
-            anio_th = trs[7].find("th")
-            anio = trs[7].find("td")
-
-            descripcion_fisica_th = trs[8].find("th")
-            descripcion_fisica_td = trs[8].find("td")
-
-            return {"message": "Servicio no disponible", "status": "KO"}
-        else:
-            return {"message": "Servicio no disponible", "status": "KO"}
-
+        for tr in trs:
+            print tr.th.text , ":" , tr.td

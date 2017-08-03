@@ -1,17 +1,19 @@
 # -*- coding: utf-8 -*-
 from flask_restful import reqparse
-# CONTROLLER
-from v1.resources.Controller import ControllerList
-# OBJECT MODEL
-from v1.models.library.Library import LibrarySchema, Library
-from v1.models.library.NewBook import QueryNewBooksSchema
+
+# CRAWLER
+from v1.crawlers.NewsBooksCrawler import NewsBooksCrawler
+# STATUS CODES
+from v1.common import Status
 # DATA MODEL
 # EXCEPTIONS
 from v1.exceptions.ExceptionMsg import ExceptionMsg
-# STATUS CODES
-from v1.common import Status
-# CRAWLER
-from v1.crawlers.news.NewsBooksCrawler import NewsBooksCrawler
+# OBJECT MODEL
+from v1.models.library.Library import LibrarySchema, Library
+from v1.models.library.NewBook import QueryNewBooksSchema
+# CONTROLLER
+from v1.resources.Controller import ControllerList
+
 
 # from pprint import pprint
 # import sys, urllib2
@@ -56,11 +58,9 @@ class NewBookListController(ControllerList):
 
             # CREATE  NEW BOOKS CRAWLER
             crawler = NewsBooksCrawler()
-
+            self.args["library_key"] = library_om.data["key"]
             # GET BOOKS
-            result = crawler.search(library_om.data["key"], self.args["date_from"], self.args["date_to"],
-                                    self.args["base"], self.args["order"], self.args["term"], self.args["index"],
-                                    self.args["init"], self.args["total"])
+            result = crawler.search(self.args)
 
             return result, Status.HTTP.OK
         except Exception as e:
